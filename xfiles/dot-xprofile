@@ -1,0 +1,64 @@
+#!/bin/bash
+
+#if [ -d /etc/X11/xinit/xinitrc.d ] ; then
+# for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+#  [ -x "$f" ] && . "$f"
+# done
+# unset f
+#fi
+
+#[[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
+#[[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
+
+
+# Ensure that the D-Bus Communication System is running properly to fix
+# File management, authentication, and other essential system processes
+
+if which dbus-launch >/dev/null && test -z "$DBUS_SESSION_BUS_ADDRESS"; then
+    eval "$(dbus-launch --sh-syntax --exit-with-session)"
+fi
+
+eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+export SSH_AUTH_SOCK
+
+## Ensure that GTK themes are applied uniformly in the Desktop Environment
+export GTK2_RC_FILES="$HOME/.gtkrc-2.0" 
+
+## Start apps on X
+
+# system apps
+bash /home/codin/.screenlayout/triple-monitor-setup.sh &
+#bash /home/codin/scripts/live_wallpaper &
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+pasystray &
+udiskie &
+#syndaemon -i 1 -K -R &
+dunst -config ~/.config/dunst/dunstrc &
+blueman-applet &
+nm-applet &
+#dropbox &
+picom --experimental-backends --backend glx  --config /home/codin/dotfiles/i3_workstation/i3/picom.conf &
+# my apps
+#slack &
+#skypeforlinux &
+#redshift-gtk &
+xfce4-clipman &
+#unclutter -root -visible &
+#gnome-keyring-daemon -r -d
+#hexchat
+#transmission-gtk
+#opera
+#obs
+#ptxconf
+#thunar
+#spotify
+#virt-manager
+#filezilla
+#nautilus
+#ptxconf
+#xbacklight -set 65
+#feh --bg-fill ~/Pictures &
+#batterymon &
+xfce4-power-manager &
+psensor &
+
