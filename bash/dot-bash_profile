@@ -4,6 +4,3 @@
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
-
-
-
