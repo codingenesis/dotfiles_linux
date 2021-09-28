@@ -1,0 +1,92 @@
+[core]
+  editor = vim
+  whitespace = space-before-tab,-indent-with-non-tab,trailing-space
+  excludesfile = ~/.gitignore
+  attributesfile = ~/.gitattributes
+  ignorecase = false
+  untrackedCache = true
+  autocrlf = false
+  abbrev = 12
+
+[web]
+  browser = google-chrome
+
+[push]
+  default = current
+  followTags = true
+
+[filter "lfs"]
+        clean = git lfs clean %f
+        smudge = git lfs smudge %f
+        required = true
+
+[fetch]
+        prune =
+
+[commit]
+  verbose = true
+  # https://help.github.com/articles/signing-commits-using-gpg/
+  gpgsign = false
+
+[log]
+  date = relative
+
+[pretty]
+  custom = "%C(magenta)%h%C(red)%d %C(yellow)%ar %C(green)%s %C(yellow)(%an)"
+        #                     │        │            │            │             └─ author name
+        #                     │        │            │            └─ message
+        #                     │        │            └─ date (relative)
+        #                     │        └─ decorations (branch, heads or tags)
+        #                     └─ hash (abbreviated)
+
+[format]
+  pretty = format:%h %Cblue%ad%Creset %ae %Cgreen%s%Creset
+
+
+
+[credential]
+	helper = cache --timeout=3600
+
+[cola]
+	spellcheck = false
+
+[format]
+  pretty = medium
+
+[log]
+  abbrevCommit = true
+  date = local
+  ecorate = short
+
+[help]
+  autocorrect = 1
+
+[apply]
+  whitespace = fix
+
+[merge]
+  # Include summaries of merged commits in newly created merge commit messages
+  log = true
+  tool = vimdiff
+
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+
+[gpg]
+  program = gpg
+
+[pager]
+  diff = diff-so-fancy | less --tabs=4 -RFX
+  show = diff-so-fancy | less --tabs=4 -RFX
+
+[rebase]
+  stat = true
+  autoSquash = true
+  autoStash = true
+
+[rerere]
+  enabled = true
+  autoUpdate = true

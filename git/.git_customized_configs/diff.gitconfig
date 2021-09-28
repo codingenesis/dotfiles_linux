@@ -1,0 +1,31 @@
+[diff]
+  tool = vimdiff
+  submodule = log
+
+[difftool]
+  prompt = false
+
+[diff "pdf"]
+  binary = true
+  cachetextconv = true
+  textconv = diffpdf
+
+[diff "odt"]
+  binary = true
+  cachetextconv = true
+  textconv = odt2txt
+
+[diff "word"]
+  binary = true
+  cachetextconv = true
+  textconv = catdoc
+
+[diff "xls"]
+  binary = true
+  cachetextconv = true
+  textconv = xls2csv
+
+[diff "ppt"]
+  binary = true
+  cachetextconv = true
+  textconv = catppt

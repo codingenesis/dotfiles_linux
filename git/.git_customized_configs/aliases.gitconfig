@@ -1,0 +1,606 @@
+[alias]
+  graphgpg = log --graph --color --pretty=format:"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%C(blue)%x20(%ce)%x20%C(cyan)[gpg:%GK%x20%G?]%C(reset)%n%x20%s%n"
+  graph = log --graph --color --pretty=format:"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%C(blue)%x20(%ce)%x20%C(cyan)%C(reset)%n%x20%s%n"
+  stat = status -sb
+  last = log -1 --stat
+  unstage = reset HEAD --
+  cached = diff --cached
+  d = difftool
+  c = clone
+  l  = log --graph --oneline --decorate
+  ld = log --graph --pretty=format:'%C(yellow)%h%C(bold white red)%d%Creset %s %C(bold green)%cr %Creset%C(white)%an' --abbrev-commit --date=relative
+  ll = log --stat --decorate --source -p
+  branches = for-each-ref --sort=-committerdate --format=\"%(color:blue)%(authordate:relative)\t%(color:red)%(authorname)\t%(color:white)%(color:bold)%(refname:short)\" refs/remotes
+  a = add --all
+  ai = add -i
+  #############
+  ap = apply
+  as = apply --stat
+  ac = apply --check
+  #############
+  ama = am --abort
+  amr = am --resolved
+  ams = am --skip
+  #############
+  b = branch
+  ba = branch -a
+  bd = branch -d
+  bdd = branch -D
+  br = branch -r
+  bc = rev-parse --abbrev-ref HEAD
+  #############
+  c = commit
+  ca = commit -a
+  cm = commit -m
+  cam = commit -am
+  cem = commit --allow-empty -m
+  cd = commit --amend
+  cad = commit -a --amend
+  ced = commit --allow-empty --amend
+  #############
+  cl = clone
+  cld = clone --depth 1
+  clg = !sh -c 'git clone git://github.com/$1 $(basename $1)' -
+  clgp = !sh -c 'git clone git@github.com:$(git config --get user.username)/$1 $1' -
+  #############
+  cp = cherry-pick
+  cpa = cherry-pick --abort
+  cpc = cherry-pick --continue
+  #############
+  d = diff
+  dp = diff --patience
+  dc = diff --cached
+  dk = diff --check
+  dck = diff --cached --check
+  dt = difftool
+  dct = difftool --cached
+  #############
+  f = fetch
+  fo = fetch origin
+  fu = fetch upstream
+  #############
+  fp = format-patch
+  #############
+  fk = fsck
+  #############
+  g = grep -p
+  #############
+  l = log --oneline
+  lg = log --oneline --graph --decorate
+  #############
+  ls = ls-files
+  lsf = !git ls-files | grep -i
+  #############
+  m = merge
+  ma = merge --abort
+  mc = merge --continue
+  ms = merge --skip
+  #############
+  o = checkout
+  ob = checkout -b
+  #############
+  pr = prune -v
+  #############
+  ps = push
+  psf = push -f
+  psu = push -u
+  pst = push --tags
+  #############
+  pso = push origin
+  psao = push --all origin
+  psfo = push -f origin
+  psuo = push -u origin
+  #############
+  psom = push origin master
+  psaom = push --all origin master
+  psfom = push -f origin master
+  psuom = push -u origin master
+  psoc = !git push origin $(git bc)
+  psaoc = !git push --all origin $(git bc)
+  psfoc = !git push -f origin $(git bc)
+  psuoc = !git push -u origin $(git bc)
+  psdc = !git push origin :$(git bc)
+  #############
+  pl = pull
+  pb = pull --rebase
+  #############
+  plo = pull origin
+  pbo = pull --rebase origin
+  plom = pull origin master
+  ploc = !git pull origin $(git bc)
+  pbom = pull --rebase origin master
+  pboc = !git pull --rebase origin $(git bc)
+  #############
+  plu = pull upstream
+  plum = pull upstream master
+  pluc = !git pull upstream $(git bc)
+  pbum = pull --rebase upstream master
+  pbuc = !git pull --rebase upstream $(git bc)
+  #############
+  rb = rebase
+  rba = rebase --abort
+  rbc = rebase --continue
+  rbi = rebase --interactive
+  rbs = rebase --skip
+  #############
+  re = reset
+  rh = reset HEAD
+  reh = reset --hard
+  rem = reset --mixed
+  res = reset --soft
+  rehh = reset --hard HEAD
+  remh = reset --mixed HEAD
+  resh = reset --soft HEAD
+  #############
+  r = remote
+  ra = remote add
+  rr = remote rm
+  rv = remote -v
+  rn = remote rename
+  rp = remote prune
+  rs = remote show
+  rao = remote add origin
+  rau = remote add upstream
+  rro = remote remove origin
+  rru = remote remove upstream
+  rso = remote show origin
+  rsu = remote show upstream
+  rpo = remote prune origin
+  rpu = remote prune upstream
+  #############
+  rmf = rm -f
+  rmrf = rm -r -f
+  #############
+  s = status
+  sb = status -s -b
+  #############
+  sa = stash apply
+  sc = stash clear
+  sd = stash drop
+  sl = stash list
+  sp = stash pop
+  ss = stash save
+  sw = stash show
+  #############
+  t = tag
+  td = tag -d
+  #############
+  w = show
+  wp = show -p
+  wr = show -p --no-color
+  #############
+  subadd = !sh -c 'git submodule add git://github.com/$1 $2/$(basename $1)' -
+  subup = submodule update --init --recursive
+  subpull = !git submodule foreach git pull --tags origin master
+  #############
+  assume = update-index --assume-unchanged
+  unassume = update-index --no-assume-unchanged
+  assumed = !git ls -v | grep ^h | cut -c 3-
+  unassumeall = !git assumed | xargs git unassume
+  assumeall = !git status -s | awk {'print $2'} | xargs git assume
+  #############
+  bump = !sh -c 'git commit -am \"Version bump v$1\" && git psuoc && git release $1' -
+  release = !sh -c 'git tag v$1 && git pst' -
+  unrelease = !sh -c 'git tag -d v$1 && git pso :v$1' -
+  aliases = !git config -l | grep alias | cut -c 7-
+  snap = !git stash save 'snapshot: $(date)' && git stash apply 'stash@{0}'
+  bare = !sh -c 'git symbolic-ref HEAD refs/heads/$1 && git rm --cached -r . && git clean -xfd' -
+  whois = !sh -c 'git log -i -1 --author=\"$1\" --pretty=\"format:%an <%ae>\"' -
+  serve = daemon --reuseaddr --verbose --base-path=. --export-all ./.git
+  #############
+  ours = "!f() { git checkout --ours $@ && git add $@; }; f"
+  theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
+  subrepo = !sh -c 'git filter-branch --prune-empty --subdirectory-filter $1 master' -
+  human = name-rev --name-only --refs=refs/heads/*
+
+# View abbreviated SHA, description, and history graph of the latest 20 commits
+	l = log --pretty=oneline -n 20 --graph --abbrev-commit
+
+	# View the current working tree status using the short format
+	s = status -s
+
+	# Show the diff between the latest commit and the current state
+	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+
+	# `git di $number` shows the diff between the state `$number` revisions ago and the current state
+	di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
+
+	# Pull in remote changes for the current repository and all its submodules
+	p = git pull --recurse-submodules
+
+	# Clone a repository including all submodules
+	c = clone --recursive
+
+	# Commit all changes
+	ca = !git add -A && git commit -av
+
+	# Switch to a branch, creating it if necessary
+	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+
+	# Show verbose output about tags, branches or remotes
+	tags = tag -l
+	branches = branch -a
+	remotes = remote -v
+
+	# List aliases
+	aliases = config --get-regexp alias
+
+	# Amend the currently staged files to the latest commit
+	amend = commit --amend --reuse-message=HEAD
+
+	# Credit an author on the latest commit
+	credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
+
+	# Interactive rebase with the given number of latest commits
+	reb = "!r() { git rebase -i HEAD~$1; }; r"
+
+	# Remove the old tag with this name and tag the latest commit with it.
+	retag = "!r() { git tag -d $1 && git push origin :refs/tags/$1 && git tag $1; }; r"
+
+	# Find branches containing commit
+	fb = "!f() { git branch -a --contains $1; }; f"
+
+	# Find tags containing commit
+	ft = "!f() { git describe --always --contains $1; }; f"
+
+	# Find commits by source code
+	fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f"
+
+	# Find commits by commit message
+	fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
+
+	# Remove branches that have already been merged with master
+	# a.k.a. ‘delete merged’
+	dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+
+	# List contributors with number of commits
+	contributors = shortlog --summary --numbered
+
+	# Merge GitHub pull request on top of the current branch or,
+	# if a branch name is specified, on top of the specified branch
+	mpr = "!f() { \
+		declare currentBranch=\"$(git symbolic-ref --short HEAD)\"; \
+		declare branch=\"${2:-$currentBranch}\"; \
+		if [ $(printf \"%s\" \"$1\" | grep '^[0-9]\\+$' > /dev/null; printf $?) -eq 0 ]; then \
+			git fetch origin refs/pull/$1/head:pr/$1 && \
+			git checkout -B $branch && \
+			git rebase $branch pr/$1 && \
+			git checkout -B $branch && \
+			git merge pr/$1 && \
+			git branch -D pr/$1 && \
+			git commit --amend -m \"$(git log -1 --pretty=%B)\n\nCloses #$1.\"; \
+		fi \
+	}; f"
+
+# Human Aliases
+	unstage = reset -q HEAD --
+	discard = checkout --
+	uncommit = reset --mixed HEAD~
+
+# Fixup staged changes to specified commit
+	fixup = !sh -c 'REV=$(git rev-parse $1) && git commit --fixup $@ && git rebase -i --autosquash $REV^' -
+
+# Commit staged changes into specific commit w/o opening editor
+	fixit = "!f() { git commit --fixup=$1; GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash $1~1; }; f"
+
+# remove changes
+	scraplastcommit = reset --hard HEAD^
+
+# keep your changes
+	unwindlastcommit = reset --soft HEAD^
+
+# generate a changeset to reverse a previous commit.
+	reverselastcommit = revert HEAD
+	nevermind = !git reset --hard HEAD && git clean -d -f
+	graph = log --graph -10 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset• %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
+	precommit = diff --cached --diff-algorithm=minimal -w
+
+# List commits in short form, with colors and branch/tag annotations.
+	ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]%Creset" --decorate
+
+# List commits showing changed files
+	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]%Creset" --decorate --numstat
+
+# List with no colors if you need to chain the out put with Unix pipes:
+	lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
+
+# oneline commits showing dates
+	lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]%Creset" --decorate --date=short
+
+# default look for short git log:
+	le = log --oneline --decorate
+
+# see all the commits related to a file, with the diff of the changes
+	filelog = log -u
+	fl = log -u
+
+# check what was in the last commit
+	dl = "!git ll -1"
+
+# Show a diff last commit:
+	dlc = diff --cached HEAD^
+
+# Diff uncommited changes
+  diffunc = diff --cached
+
+# Show content (full diff) of a commit given a revision:
+	dr  = "!f() { git diff "$1"^.."$1"; }; f"
+	lc  = "!f() { git ll "$1"^.."$1"; }; f"
+	diffr  = "!f() { git diff "$1"^.."$1"; }; f"
+
+# Find a file path in codebase
+	f = "!git ls-files | grep -i"
+
+# Search/grep your entire codebase for a string:
+	grep = grep -Ii
+	gr = grep -Ii
+
+# Grep from root folder
+	gra = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && git grep --full-name -In $1 | xargs -I{} echo $TOPLEVEL/{} && cd $A; }; f"
+
+# List all Aliases, and these comments  //  la = "!git config -l | grep alias | cut -c 7-"
+	la = "!cat ~/.gitaliases | sed -n -e '/# Human Aliases/,$p' | grep '^\t\\|\\#'"
+
+# show last tag
+	lasttag = describe --tags --abbrev=0
+	lt = describe --tags --abbrev=0
+
+# show recent branches
+	short-recent = "for-each-ref --count=25 --sort=committerdate refs/heads/ --format='%(refname:short)'"
+
+# fuzzy add using fzf
+	fza = "!git ls-files -m -o --exclude-standard | fzf --print0 -m --preview 'git diff {}' --preview-window=top:10:wrap | xargs -0 -t -o git add --all"
+
+# fuzzy switch branch...  /fish/functions/fco.fish seems better
+	fco = "!git short-recent | fzf --print0 | xargs -0 -t git checkout"
+
+# fuzzy fix staged changes into existing commit
+	ffix = !HASH=`git log --pretty=oneline | head -n 100 | fzf` && git fixit `echo ${HASH} | awk '{ print $1 }'`
+
+# fuzzy rebase interactive choose existing commit to start from
+	frebase = !HASH=`git log --pretty=oneline | head -n 100 | fzf` && git rebase -i `echo ${HASH} | awk '{ print $1 }'`^
+
+# fuzzy edit untracked/modified files
+	fed = !FILES=`git status -s | awk '{ print $2 }' | fzf -x -m` && code ${FILES}
+
+# fuzzy edit files in conflict state
+	fedconflicts = !FILES=`git status -s | grep '^[UMDA]\\{2\\} ' | awk '{ print $2 }' | fzf -x -m` && code ${FILES}
+
+# fuzzy gitgrep working tree for pattern and choose file(s) to edit
+	fgrep = !sh -c 'FILES=`git grep -l -A 0 -B 0 $1 $2 | fzf -x -m` && code `echo ${FILES} | cut -d':' -f1 | xargs`' -
+
+# fuzzy select past commit, and edit current state of file(s) changed in it
+	fedlog = !HASH=`git log --pretty=oneline | head -n 50 | fzf` && HASHZ=`echo ${HASH} | awk '{ print $1 }'` && FILES=`git show --pretty='format:' --name-only $HASHZ | grep -v -e '^$' | fzf -x -m` && code ${FILES}
+
+# fuzzy reset back to prior commit
+	freset = !HASH=`git log --pretty=oneline | head -n 50 | fzf` && git reset --soft `echo ${HASH} | awk '{ print $1 }'`^
+
+    a = add
+    aa = add -A
+    b = branch
+    ba = branch -a
+    c = commit -m
+    ca = commit -am
+    co = checkout
+    contributors = shortlog -nse
+    d = diff --patch-with-stat
+    df = diff --patch-with-stat --color-words
+    ds = diff --patch-with-stat --staged
+    dt = difftool
+    dts = difftool --staged
+    fc = "!f() { git log --pretty='%C(yellow)%h%Creset -%Cred%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --grep=$1; }; f"
+    fs = "!f() { git log --pretty='%C(yellow)%h%Creset -%Cred%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' -S$1; }; f"
+    lg = log --graph --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset'
+    pull-dir = "!find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pull \\;"
+    remotes = remote -v
+    s = status -sb
+    sclone = clone --depth 1
+    undo = reset HEAD~1
+
+  co = checkout
+  db = "!f() { [ -n \"$1\" ] && git branch -d $1 && git push origin :$1; }; f"
+  dbf = "!f() { [ -n \"$1\" ] && git branch -D $1 && git push origin :$1; }; f"
+  dc = diff --cached
+  lg = log --oneline --decorate --all --graph -30
+  pr = !git push -u && hub pull-request
+  st = status
+  tg = "!f() { [ -n \"$1\" ] && git tag -s -m $1 $1; }; f"
+  up = !git fetch origin && git rebase origin/master
+  co-pr = "!f() { git fetch origin pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
+  merge-pr = "!f() { git fetch origin pull/$1/head:pr/$1 && git merge pr/$1; }; f"
+  recommit = "!f() { git commit --amend --no-edit; }; f"
+
+  # A good list of alises http://haacked.com/archive/2014/07/28/github-flow-aliases/
+[alias]
+        # Staging
+        a = add
+        aa = add --all
+
+        # Branch
+        br = branch
+        branch-name = rev-parse --abbrev-ref HEAD
+        branch-diff = diff master...HEAD
+        branch-files = "!git diff master...HEAD --name-status | sed '/^D/d ; s/^.\\s\\+//'"
+
+        # Commit
+        c = commit
+        ca = commit -a
+        cm = commit -m
+        cal = !git add -A && git commit              # Commit all changes
+        cam = commit -am
+        cne = commit --no-edit
+        amend = commit --amend
+        amend-all = !git add --all && git commit --amend --reuse-message=HEAD
+
+        # Clone
+        cl = clone
+        sclone = clone --depth=1
+
+        # Checkout
+        co = checkout
+        cb = checkout -b
+
+        # Cherry-pick
+        cp = cherry-pick
+
+        # Diff
+        d = diff --color-words
+        dc = diff --cached
+        df = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+
+        # Merge
+        m = merge
+
+        # Pull
+        up = pull
+        plom = pull origin master
+        plum = pull upstream master
+        preb = !git fetch upstream && git rebase upstream/master
+
+        # Push
+        p = push
+        pom = push origin master
+        poh = push origin head
+
+        # Stash
+        st = stash
+        stp = stash pop
+
+        # Status/Logging
+        s = status
+        ss = status -sb
+        hist = log --graph --pretty=custom           # Show custom graph
+        l = log --pretty=custom                      # Show custom log
+        ll = log --stat --abbrev-commit
+        lc = shortlog --summary --numbered           # List contributors
+
+        # Reset
+        unstage = reset HEAD --                      # Mixed reset (affects HEAD and Index)
+        undo = reset --soft HEAD~1                   # Undo last commit (affects HEAD only)
+        reset = reset --hard HEAD~1                  # Remove last commit (from HEAD, Index and Working Dir)
+
+        # Remote
+        r = remote -v
+
+        # Submodules
+        subpl = submodule update --init --recursive
+
+        # Git flow
+        new = !git pull origin develop && git flow feature start
+        done = !git pull origin develop && git flow feature finish "$(git symbolic-ref --short HEAD | sed -n 's/^feature\\///p')"
+        go = !git checkout $1 && pull
+        master = !git checkout master && pull
+        develop = !git checkout develop && pull
+        mmm = !git fetch origin master && git rebase origin/master
+        ddd = !git fetch origin develop && git rebase origin/develop
+
+        # Misc
+        publish = "!git push --set-upstream origin $(git branch-name)"
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  # Find commits by source code
+
+  cc = "!f() { \
+      git log --pretty=custom --decorate --date=short -S\"$1\"; \
+  }; f"
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  # Find commits by commit message
+
+  cm = "!f() { \
+      git log --pretty=custom --decorate --date=short --grep=\"$1\"; \
+  }; f"
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  # Credit an author on the latest commit
+
+  credit = "!f() { \
+      if [ -n \"$1\" ] && [ -n \"$2\" ]; then \
+          git commit --amend --author \"$1 <$2>\" -C HEAD; \
+      fi \
+  }; f"
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  # List remote branches
+
+  lrb = "!f() { \
+      remote="${1:-origin}"; \
+      git ls-remote --heads "$remote"; \
+  }; f"
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  # Merge GitHub pull request on top of the current branch or,
+  # if a branch name is specified, on top of the specified branch
+
+  mpr = "!f() { \
+      declare currentBranch=\"$(git symbolic-ref --short HEAD)\"; \
+      declare branch=\"${2:-$currentBranch}\"; \
+      if [ $(printf \"%s\" \"$1\" | grep '^[0-9]\\+$' > /dev/null; printf $?) -eq 0 ]; then \
+          git fetch origin refs/pull/$1/head:pr/$1 && \
+          git checkout -B $branch && \
+          git rebase $branch pr/$1 && \
+          git checkout -B $branch && \
+          git merge pr/$1 && \
+          git branch -D pr/$1 && \
+          git commit --amend -m \"$(git log -1 --pretty=%B)\n\nClose #$1\"; \
+      fi \
+  }; f"
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  # Remove the tag with the specified tag name if
+  # exists and tag the latest commit with that name
+
+  retag = "!f() { \
+      git tag -d "$1" &> /dev/null; \
+      git tag $1; \
+  }; f"
+
+    s = status
+	co = checkout
+	history = "log -p"
+	shallow-clone = "clone --depth=1"
+    tree = "log --graph --oneline --all --decorate=full"
+	pick = "cherry-pick"
+  contributors = "shortlog -n -s --no-merges"
+  amend = "commit -a --amend"
+  staged = "diff --staged"
+
+  ls      = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+  last    = log -1 HEAD
+  today   = log --since=midnight --color --graph \
+            --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(blue)[%an]%Creset' \
+            --abbrev-commit
+  yesterday = log --since yesterday --until=midnight --color --graph \
+            --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(blue)[%an]%Creset' \
+            --abbrev-commit
+  history = log --graph --pretty=format:'%C(yellow)%h%Creset \
+            -%C(yellow)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' \
+            --abbrev-commit --date=short --date-order -n30
+
+  remotes = remote -v
+  df      = diff
+
+  branches = branch -a
+  unstage = reset HEAD --
+  discard = checkout --
+  co      = checkout
+  com     = checkout master
+
+  amend   = commit --amend
+  ca      = commit --amend
+  cm      = commit -m
+
+  s       = status --short --branch
+  st      = status
+  sta     = status --short --branch --untracked-files=normal
+
+  sync    = !git pull && git push
+  ta      = tag -a
+  tags    = tag -l
+

@@ -1,0 +1,6 @@
+[include]
+  path = ~/.git_customized_configs/aliases.gitconfig
+  path = ~/.git_customized_configs/colors.gitconfig
+  path = ~/.git_customized_configs/urls.gitconfig
+  path = ~/.git_customized_configs/user.gitconfig
+  path = ~/.git_customized_configs/settings.gitconfig
