@@ -1,0 +1,117 @@
+#!/usr/bin/env bash
+
+# starts the message bus
+export $(dbus-launch)
+
+
+# To be deleted
+#GIT_PROMPT_ONLY_IN_REPO=1
+#GIT_PROMPT_SHOW_UPSTREAM=1
+#GIT_PROMPT_THEME="Solarized"
+#GIT_PROMPT_SHOW_UNTRACKED_FILES=all
+
+#source ~/.bash-git-prompt/gitprompt.sh
+
+# updates the values of LINES and COLUMNS based on window size
+shopt -s checkwinsize
+
+# Autocorrect typos in path names when using `cd`.
+shopt -s cdspell
+
+# Case-insensitive globbing (used in pathname expansion).
+shopt -s nocaseglob
+
+# Bash attempts to save all lines of a multiple-line command in the same history entry.
+# This allows easy re-editing of multi-line commands.
+shopt -s cmdhist
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+shopt -s globstar
+
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob
+
+# Append to the Bash history file, rather than overwriting it
+shopt -s histappend
+
+
+# Enable some Bash 4 features when possible:
+# * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
+# * Recursive globbing, e.g. `echo **/*.txt`
+for option in autocd globstar; do
+        shopt -s "$option" 2> /dev/null
+done
+
+# Bash completion, Install bash completion package.
+if ! shopt -oq posix; then
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        source /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        source /etc/bash_completion
+    fi
+fi
+
+## custom PS1 and it's colors
+
+if tput setaf 1 &> /dev/null; then
+    if [[ $(tput colors) -ge 256 ]] 2>/dev/null; then
+      MAGENTA=$(tput setaf 9)
+      ORANGE=$(tput setaf 172)
+      GREEN=$(tput setaf 190)
+      PURPLE=$(tput setaf 141)
+      WHITE=$(tput setaf 0)
+    else
+      MAGENTA=$(tput setaf 5)
+      ORANGE=$(tput setaf 4)
+      GREEN=$(tput setaf 2)
+      PURPLE=$(tput setaf 1)
+      WHITE=$(tput setaf 7)
+    fi
+    BOLD=$(tput bold)
+    RESET=$(tput sgr0)
+else
+    MAGENTA="\033[1;31m"
+    ORANGE="\033[1;33m"
+    GREEN="\033[1;32m"
+    PURPLE="\033[1;35m"
+    WHITE="\033[1;37m"
+    BOLD=""
+    RESET="\033[m"
+fi
+
+
+PS1="\[${BOLD}${MAGENTA}\]\u \[$PURPLE\]at \[$ORANGE\]\h \[$PURPLE\]in \[$PURPLE\]\w\[$PURPLE\]\n\$ \[$RESET\]"
+
+
+# Load the shell dotfiles, and then some:
+# * ~/.path can be used to extend `$PATH`.
+# * ~/.aliases for custom aliases.
+# * ~/.func for custom functions.
+# * ~/.dkfunc for docker functions.
+# * ~/.exports all the export commands at one place
+#for file in ~/.{path,system_aliases,misc_aliases,misc_functions,docker_aliases,docker_functions,git_aliases}; do
+#        if [[ -r "$file" ]] && [[ -f "$file" ]]; then
+#                # shellcheck source=/dev/null
+#                source "$file"
+#        fi
+#done
+#unset file
+
+# Add tab completion for SSH hostnames based on ~/.ssh/config
+# ignoring wildcards
+[[ -e "$HOME/.ssh/config" ]] && complete -o "default" \
+        -o "nospace" \
+        -W "$(grep "^Host" ~/.ssh/config | \
+        grep -v "[?*]" | cut -d " " -f2 | \
+        tr ' ' '\n')" scp sftp ssh
+
+
+
+eval $(keychain --eval --quiet id_ed25519 id_rsa )
+
+# Corrects errors in previous commands.
+eval "$(thefuck --alias)"
+
+# BAT better then CAT
+export BAT_THEME="TwoDark"
