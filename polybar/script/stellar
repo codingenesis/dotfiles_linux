@@ -1,0 +1,8 @@
+#!/usr/bin/env python3
+
+import requests
+
+r = requests.get('https://www.worldcoinindex.com/apiservice/ticker?key=HTkKbxdBmIIh9f0MPFIGUZH96EO4lE&label=xlmbtc&fiat=eur');
+ticker = r.json()
+
+print('%.2f€' % float(ticker['Markets'][0]['Price']))
