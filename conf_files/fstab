@@ -1,0 +1,13 @@
+# 
+# /etc/fstab: static file system information
+#
+# <file system>	<dir>	<type>	<options>	<dump>	<pass>
+# /dev/sda3
+UUID=73ba40bb-131a-4889-b836-7e7e6a431a89	/         	ext4      	rw,relatime,data=ordered	0 1
+
+# /dev/sda1
+UUID=AB42-FB44      	/boot     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro	0 2
+
+# /dev/sda2
+UUID=73e014d7-4bd6-456f-940d-52b5a02070fd	none      	swap      	defaults  	0 0
+
