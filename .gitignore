@@ -1,5 +1,4 @@
 .idea
-.gitmodules
 git/.git_customized_configs/user.gitconfig
 git/.git_customized_configs/git-personal.conf
 git/.git_customized_configs/git-work.conf
