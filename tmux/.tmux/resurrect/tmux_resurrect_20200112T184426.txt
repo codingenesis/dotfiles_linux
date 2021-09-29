@@ -1,0 +1,15 @@
+pane	0	1	:weechat	0	:#	1	:/home/codin	1	weechat	:weechat
+pane	0	2	:bash	0	:#	1	:/home/codin/dotfiles	1	zsh	:
+pane	0	2	:bash	0	:#	2	:/home/codin	0	zsh	:
+pane	0	3	:bash	1	:*	1	:/home/codin/git-repos/my-creation/git-test-bed	1	zsh	:
+pane	0	3	:bash	1	:*	2	:/home/codin	0	zsh	:
+pane	0	4	:bash	0	:-	1	:/home/codin/cfg	1	zsh	:
+pane	1	1	:bash	1	:*	1	:/home/codin	1	zsh	:
+pane	2	1	:bash	1	:*	1	:/home/codin	1	zsh	:
+window	0	1	0	:#	c4fe,147x36,0,0,1
+window	0	2	0	:#	7921,147x36,0,0{73x36,0,0,2,73x36,74,0,3}
+window	0	3	1	:*	792a,147x36,0,0{73x36,0,0,4,73x36,74,0,5}
+window	0	4	0	:-	c503,147x36,0,0,6
+window	1	1	1	:*	c504,147x36,0,0,7
+window	2	1	1	:*	c505,147x36,0,0,8
+state	0	1

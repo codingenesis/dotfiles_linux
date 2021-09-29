@@ -7,3 +7,27 @@
 [submodule "zsh/.zsh/plugins/zsh-syntax-highlighting"]
 	path = zsh/.zsh/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "tmux/.tmux/plugins/tmux-continuum"]
+	path = tmux/.tmux/plugins/tmux-continuum
+	url = https://git::@github.com/tmux-plugins/tmux-continuum
+[submodule "tmux/.tmux/plugins/tmux-copycat"]
+	path = tmux/.tmux/plugins/tmux-copycat
+	url = https://git::@github.com/tmux-plugins/tmux-copycat
+[submodule "tmux/.tmux/plugins/tmux-logging"]
+	path = tmux/.tmux/plugins/tmux-logging
+	url = https://git::@github.com/tmux-plugins/tmux-logging
+[submodule "tmux/.tmux/plugins/tmux-pain-control"]
+	path = tmux/.tmux/plugins/tmux-pain-control
+	url = https://git::@github.com/tmux-plugins/tmux-pain-control
+[submodule "tmux/.tmux/plugins/tmux-resurrect"]
+	path = tmux/.tmux/plugins/tmux-resurrect
+	url = https://git::@github.com/tmux-plugins/tmux-resurrect
+[submodule "tmux/.tmux/plugins/tmux-sessionist"]
+	path = tmux/.tmux/plugins/tmux-sessionist
+	url = https://git::@github.com/tmux-plugins/tmux-sessionist
+[submodule "tmux/.tmux/plugins/tmux-yank"]
+	path = tmux/.tmux/plugins/tmux-yank
+	url = https://git::@github.com/tmux-plugins/tmux-yank
+[submodule "tmux/.tmux/plugins/tpm"]
+	path = tmux/.tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
