@@ -21,3 +21,26 @@ All my dotfiles at one place
 
 ```
 
+### Using GNU stow to install dotfiles
+
+### xfiles
+
+### bash
+
+### zsh
+
+### git
+
+### i3wm
+
+### i3_blocks
+
+### polybar
+
+### tmux
+
+### vim
+
+### conf
+
+### apps
