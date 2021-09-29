@@ -1,0 +1,713 @@
+" My .vimrc copied over the years from numerous people from github and irc
+
+call plug#begin('~/.vim/plugged')
+
+" Plugs to make VIM super usable
+
+"""""""""""""""""""""""""""""nerdtree""""""""""""""""""""""""
+
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+" To open when you don't mention any file
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+"To open when you mention dir name
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+
+map <C-n> :NERDTreeToggle<CR>
+
+"To clsose vim when only window left is nerdtree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+let NERDTreeShowHidden=1
+
+"""""""""""""""""""vim-sensible defaults""""""""""""""""""
+
+"Plug 'tpope/vim-sensible'
+
+"""""""""""""""""""auto-pairs""""""""""""""""
+
+Plug 'jiangmiao/auto-pairs'
+
+"""""""""""""""""""nerdcommenter"""""""""""""
+
+Plug 'scrooloose/nerdcommenter'
+
+" Add spaces after comment delimiters by default
+"let g:NERDSpaceDelims = 1
+
+" Use compact syntax for prettified multi-line comments
+"let g:NERDCompactSexyComs = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+"let g:NERDDefaultAlign = 'left'
+
+" Allow commenting and inverting empty lines (useful when commenting a region)
+"let g:NERDCommentEmptyLines = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+"let g:NERDTrimTrailingWhitespace = 1
+
+" Enable NERDCommenterToggle to check all selected lines is commented or not 
+"let g:NERDToggleCheckAllLines = 1"
+"
+
+"""""""""""""""""""indentLine""""""""""""""""
+
+Plug 'Yggdroot/indentLine'
+
+let g:indentLine_setColors = 0
+
+" Vim
+let g:indentLine_color_term = 239
+
+" GVim
+let g:indentLine_color_gui = '#A4E57E'
+
+" none X terminal
+let g:indentLine_color_tty_light = 4 " (default: 4)
+let g:indentLine_color_dark = 2 " (default: 2)
+
+" Background (Vim, GVim)
+let g:indentLine_bgcolor_term = 202
+let g:indentLine_bgcolor_gui = '#657B83'
+
+"let g:indentLine_char = 'c'
+
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+
+let g:indentLine_concealcursor = 'inc'
+let g:indentLine_conceallevel = 2
+
+"""""""""""""""""""vim-tmux-navigator"""""""""""
+
+"Plug 'christoomey/vim-tmux-navigator'
+
+""""""""""""""""""""""""vim airline"""""""""""""""""""""
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+"let g:airline_theme='solarized'
+"let g:airline_solarized_bg='dark'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'default'
+let g:airline_powerline_fonts = 1
+set laststatus=2
+
+"syntax enable
+"set background=light
+
+
+""""""""""""""""""""""syntastic""""""""""""""""
+
+Plug 'scrooloose/syntastic'
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_tex_checkers = ['lacheck', 'text/language_check']
+"let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+let g:syntastic_python_checkers = ['pylint']
+let g:syntastic_always_populate_loc_list = 1
+
+nnoremap <silent> <C-d> :lclose<CR>:bdelete<CR>
+cabbrev <silent> bd <C-r>=(getcmdtype()==#':' && getcmdpos()==1 ? 'lclose\|bdelete' : 'bd')<CR>
+
+function! FindConfig(prefix, what, where)
+	    let cfg = findfile(a:what, escape(a:where, ' ') . ';')
+	        return cfg !=# '' ? ' ' . a:prefix . ' ' . shellescape(cfg) : ''
+	endfunction
+
+	autocmd FileType javascript let b:syntastic_javascript_jscs_args =
+	    \ get(g:, 'syntastic_javascript_jscs_args', '') .
+	    \ FindConfig('-c', '.jscsrc', expand('<afile>:p:h', 1))
+
+"let g:syntastic_quiet_messages = { "type": "style" }
+
+  let g:syntastic_python_checkers = ['frosted', 'python']
+  let g:syntastic_vim_checkers = ['vint']
+  let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+  let g:syntastic_sh_checkers = ['shellcheck'] " best one ? or bashate ?
+  ""let g:syntastic_sh_checkers = ['bashate', 'checkbashisms', 'shellcheck']
+  " could not find 'sh' and 'shellcheck' on freebsd
+  " # pip install bashate # requirement
+  " # pkg install hs-shellcheck
+  " # pkg install checkbashisms
+
+  let g:syntastic_aggregate_errors = 1
+  let g:syntastic_enable_signs = 1
+  let g:syntastic_error_symbol = "\u2717"
+  let g:syntastic_warning_symbol = "\u26A0"
+  let g:syntastic_style_error_symbol = "\u2717"
+  let g:syntastic_style_warning_symbol = "\u26A0"
+  let g:syntastic_always_populate_loc_list = 0
+  let g:syntastic_auto_loc_list = 0
+  let g:syntastic_check_on_wq = 0
+
+  let g:go_list_type = 'quickfix'
+  let g:go_fmt_fail_silently = 1
+
+  function! ExpandSnippetOrReturn()
+    let snippet = UltiSnips#ExpandSnippetOrJump()
+    if g:ulti_expand_or_jump_res > 0
+      return snippet
+    else
+      return "\<C-Y>" " select without newline in popup
+    endif
+  endfunction
+
+
+
+"""""""""""""""""""""""""""""""""""" vim-unimpaired """""""""""""""""""""""""""
+
+Plug 'tpope/vim-unimpaired'
+
+""""""""""""""""""""""""""""""""""" python-mode """"""""""""""""""""""""""
+Plug 'python-mode/python-mode'
+
+let g:pymode_rope = 0
+let g:pymode_python = 'python3'
+
+Plug 'davidhalter/jedi-vim'
+
+let g:jedi#goto_command = "<leader>d"
+let g:jedi#goto_assignments_command = "<leader>g"
+let g:jedi#goto_definitions_command = ""
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<leader>r"
+
+"""""""""""""""""YouCompleteMe""""""""""""""""""""""""""""""""""""
+"Plug 'valloric/youcompleteme'
+
+let g:ycm_global_ycm_extra_conf = '/usr/share/vim/vimfiles/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+""""""""""""""""" Surround.vim"""""""""""""""""""""""
+Plug 'tpope/vim-surround'
+
+"""""""""""""""" ctrlp.vim""""""""""""""""""""""""
+Plug 'ctrlpvim/ctrlp.vim'
+
+"""""""""" solarized""""""""""""""""
+Plug 'altercation/vim-colors-solarized'
+
+"""""""" nerd commenter""""""""""
+Plug 'scrooloose/nerdcommenter'
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Align line-wise comment delimiters flush left instead of following code
+" indentation
+let g:NERDDefaultAlign = 'left'
+
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+
+" Allow commenting and inverting empty lines (useful when commenting a
+" region)
+let g:NERDCommentEmptyLines = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
+""""""""""""""""""vim gitgutter""""""""""""
+"Plug 'airblade/vim-gitgutter'
+
+"let g:gitgutter_sign_column_always = 1
+"let g:gitgutter_max_signs = 500  " default value
+
+"""""""""""""""""" easymotion"""""""""""""
+Plug 'easymotion/vim-easymotion'
+
+"""""""""""""""tabular"""""""""""""
+Plug 'godlygeek/tabular'
+
+"""""""""""""""""supertab""""""""""
+Plug 'ervandew/supertab'
+
+"""""""""""""""repeat-vim"""""""'''
+Plug 'tpope/vim-repeat'
+
+""""""""""""""emmet""""""""""""""""
+Plug 'mattn/emmet-vim'
+
+"""""""""""""""commentary""""""""
+Plug 'tpope/vim-commentary'
+
+""""""""""""""delimitmate"""""""""""""
+Plug 'raimondi/delimitmate'
+
+""""""""indentguides""""""""""""
+"Plug 'nathanaelkane/vim-indent-guides'
+
+""""""""""molokai""""""""""""
+Plug 'tomasr/molokai'
+
+"""""""""""""""vim-colorschemes"""""""""
+Plug 'flazz/vim-colorschemes'
+
+"""""""""""""vim-markdown"""""""""
+Plug 'tpope/vim-markdown'
+
+"""""""""""""ultisnip""""""""""""""
+
+" Track the engine.
+Plug 'SirVer/ultisnips'
+
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+
+" Trigger configuration. Do not use <tab> if you use
+" https://github.com/Valloric/YouCompleteMe.
+"let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+"let g:UltiSnipsJumpForwardTrigger="<c-b>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+
+"""""""""""""""vimtmuxnavigator"""""""""""
+
+Plug 'christoomey/vim-tmux-navigator'
+
+
+""""""""""""""json""""""""
+
+Plug 'elzr/vim-json'
+
+""""""""""""sensible"""""""
+
+Plug 'tpope/vim-sensible'
+
+""""""""""""""autopairs""""""""
+
+Plug 'jiangmiao/auto-pairs'
+
+""""""""""""""html5"""""""""""""""
+
+Plug 'othree/html5.vim'
+
+""""tagbar"""
+Plug 'majutsushi/tagbar'
+
+nmap <F8> :TagbarToggle<CR>
+
+
+"""""""vim-flake8""""""
+
+Plug 'nvie/vim-flake8'
+
+""""""""""""""""" vimagit """""
+
+Plug 'jreybert/vimagit'
+
+"""""""""""""""" Ctrlspace"""""
+
+Plug 'vim-ctrlspace/vim-ctrlspace'
+
+""""""""""""""""vim-signify""""""""""""
+
+Plug 'mhinz/vim-signify'
+
+" highlight lines in Sy and vimdiff etc.)
+
+highlight DiffAdd           cterm=bold ctermbg=none ctermfg=119
+highlight DiffDelete        cterm=bold ctermbg=none ctermfg=167
+highlight DiffChange        cterm=bold ctermbg=none ctermfg=227
+
+highlight SignifySignAdd    cterm=bold ctermbg=none ctermfg=119
+highlight SignifySignDelete cterm=bold ctermbg=none ctermfg=167
+highlight SignifySignChange cterm=bold ctermbg=none ctermfg=227
+
+highlight clear SignColumn
+
+""""""""""""""""vim-undotree """""""""""
+
+Plug 'mbbill/undotree'
+
+nnoremap <F8> :UndotreeToggle<cr>
+
+if has("persistent_undo")
+    set undodir=~/.undodir/
+    set undofile
+endif
+
+""""""""""""""""gundo.vim"""""""""""""""
+
+Plug 'sjl/gundo.vim'
+
+nnoremap <F5> :GundoToggle<CR>
+
+let g:gundo_width = 60
+let g:gundo_preview_height = 40
+let g:gundo_right = 1
+
+
+call plug#end()
+
+
+"My Customization
+
+set noruler
+set nocompatible
+filetype plugin indent on
+set number
+syntax on
+set clipboard=unnamed
+set titleold=""
+set title
+set hidden
+set wildmenu
+set wildignore=*.o,*.obj,.git,*.pyc,*.png,*.jpg,*.gif,*.exe,*.gif
+" TODO: customize wildmenu ":help wildmenu"
+set nowrap " (default: off) word wrap just reenable this when needed
+set backspace=indent,eol,start
+set history=1000 " (default: 50) number of commands remembered in :history (: command list)
+set incsearch " (default: off) jump to instant match when beginning to type a search
+set undolevels=1000 " (default: 100)
+set autoindent " (default: off)
+set scrolloff=1 " Minimal number of screen lines to keep above and below the cursor. (When moving up or down in scrolls).
+set sidescrolloff=5
+set smartindent " (default: off)
+" Do smart autoindenting when starting a new line.
+set splitbelow " (default: off)
+
+set termencoding=utf-8 " (default: '')
+scriptencoding=utf-8 " (default: '')
+" see: http://rbtnn.hateblo.jp/entry/2014/12/28/010913
+set autoread " (default: off) Auto-detect file changes and warn.
+set makeef=error.err " (default: '') Name of the errorfile for the :make command, see :make_makeprg
+set showfulltag " (default: off) Completion shows arguments on completion of a word (function).
+set expandtab " (default: off) Use spaces instead of tabs
+set nomodeline " (default: on, off for root)
+"disable modelines (embedded vim configurations)
+set laststatus=2 " (default: 1) always show statusbar
+set formatoptions+=j " Delete comment character when joining commented lines
+setglobal tags-=./tags tags-=./tags; tags^=./tags;
+set shell=/bin/bash
+set complete-=i " turn off: scan current and included files
+set nrformats-=octal " do not increment zero-prefixed numbers as octal
+set display+=lastline
+set history=1000
+set tabpagemax=50
+set sessionoptions-=options
+set undoreload=10000
+" Enable tab conversion, Use a width of 4 to tab
+set smarttab
+set softtabstop=2
+set tabstop=2
+set shiftwidth=2
+set hlsearch
+" make searches case-sensitive only if they contain upper-case
+set ignorecase smartcase
+set t_Co=256
+set colorcolumn=80
+set timeoutlen=2000 " (default: 1000) leader-wait time
+" set ttimeout | set ttimeoutlen=20
+" mouse support changing windows etc. (works in PuTTY as well on windows)
+" NOTE: weird bug, leaving a VM GUEST with HOST KEY on VirtualBox
+" and clicking in Vim window opens :help
+"set mouse=nvc
+set background=dark
+let mapleader = ','
+" fix mouse drag resize splits in tmux
+  if !empty(&viminfo)
+    set viminfo^=!
+  endif
+  if exists('$TMUX')
+    set ttymouse=xterm2
+  endif
+  let g:netrw_silent=1
+"
+
+" (Avoid redrawing the screen and reducing performance over SSH)
+  if ($SSH_CLIENT || $SSH_TTY)
+    set lazyredraw " (default: off)
+                  " screen will not be redrawn while executing macros
+                  " registers and other commands that have not been typed.
+    set number " (default: off)
+    set noshowcmd
+        ¦       ¦     " NOTE: Use :redraw,:redraw! or <C-L> to redraw syntax
+    set synmaxcol=100 " (default: 3000) makes syntax in long files much faster
+        ¦       ¦     " match-parens (e.g. brackets can hang on you)
+        ¦       ¦     " :optioons (help) maximum column to look for syntax items
+    let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+    set noshowmode " (default: on)
+  else
+    set showcmd " Show normal mode commands to the right when typed
+    set number
+"    set relativenumber
+    set report=0 " (default: 2) will report even if 1 line is yanked.
+  endif
+"
+
+" If this is SSH with X11 - enable clipboard :)
+  if exists($DISPLAY) && ($SSH_CLIENT || $SSH_TTY)
+    let g:x11_forward=1
+    set clipboard=unnamedplus
+  else
+    let g:x11_forward=0
+  endif
+"
+
+" platform-detection, soon to be plugin
+  let g:platform = 0
+  let g:distro = 0
+  " more distros to detect:
+  "https://www.novell.com/coolsolutions/feature/11251.htm://www.novell.com/coolsolutions/feature/11251.html
+  let g:uname = substitute(system('uname'), '\n\+$', '', '')
+  let g:slash='/'
+  if filereadable('/etc/debian_version')
+      let g:platform='Linux'
+      if !empty(system("grep 'Microsoft' '/proc/version'"))
+        " Windows Subsystem for Linux
+        let g:distro='WSL'
+      else
+        let g:distro='Debian'
+      endif
+  elseif has('mac')
+      let g:platform='Darwin'
+      let g:distro='OS X'
+  elseif g:uname ==# 'FreeBSD'
+      let g:platform='FreeBSD'
+  elseif has('unix')
+      let g:platform='UNIX'
+  elseif has('win32') || has('win64') "win32 also matches on win64 so redundant
+      let g:platform='Windows'
+      let g:slash='\'
+  elseif has('win32unix')
+      let g:platform='Cygwin'
+  else
+      let g:platform='Unknown'
+  endif
+"
+
+" Mappings
+"  nnoremap <F12> :SyntasticCheck<CR>
+"  nnoremap <S-F12> :Errors<CR>
+  " goto line with [n]+G+ENTER
+  "nnoremap <CR> G
+  " ^ fucks up normal ENTER of course (makes it go to end of line)
+  " Edit a file in current path (g:slash from platform plugin)
+  nnoremap <leader>e  :e <C-R>=expand("%:p:h").g:slash<CR>
+  nnoremap <leader>x  :e $MYVIMRC<CR>
+  nnoremap <leader>X  :source $MYVIMRC<CR>
+  nnoremap <leader>b  :buffers<CR>
+  nnoremap <leader>f  :b
+  nnoremap <leader>n  :bn<CR>
+  nnoremap <leader>p  :bp<CR>
+  nnoremap <leader>a  :e#<CR>
+  nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
+  " TODO: CHANGE working directory ,cd before vimgrep! Important!
+  " Vimgreps current file
+  nnoremap <leader>g :vimgrep // %<left><left><left>
+  " Vimgreps recursive
+  nnoremap <leader>G :vimgrep // **/*<left><left><left><left><left><left>
+  " Vimgreps recursive with extension from current file
+  nnoremap <leader>B :vimgrep // **/*.<C-R>=expand('%:e')<CR><left><left><left><left><left><left><left>
+  nnoremap <leader>tp <ESC>:tabprev<CR>
+  nnoremap <leader>tn <ESC>:tabnew<CR>
+  nnoremap <leader>td <ESC>:tabclose<CR>
+  " paste @ EOL
+  nnoremap <leader>p A <ESC>P
+  " yank to EOL
+  nnoremap <leader>y yg_
+  nnoremap <leader>d :bd<CR>
+  nnoremap <leader>D :bd!<CR>
+  " print out what mode youre in
+  nnoremap <leader>T :echo mode()<CR>
+  nnoremap <leader>. :MUcompleteAutoToggle<CR>
+  nnoremap <leader>l :<C-R>:
+  nnoremap <leader>L :<C-R>:<CR>
+  nnoremap <leader>o :browse oldfiles<CR>
+  nnoremap <leader>O :e <C-R>=expand('%:p:h')<CR><CR>
+  " only for PuTTY? TODO: condition
+  map <ESC>[D <C-Left>
+  map <ESC>[C <C-Right>
+  map! <ESC>[D <C-Left>
+  map! <ESC>[C <C-Right>
+  map <ESC>^@ <C-Space>
+  map! <ESC>^@ <C-Space>
+  nmap <C-Left> :bprev<CR>
+  nmap <C-Right> :bnext<CR>
+  nmap <C-Up> :tabnext<CR>
+  nmap <C-Down> :tabprevious<CR>
+  nmap <C-Space> :e#<CR>
+  nnoremap <leader>P :setlocal paste!<CR>
+  " ALT-key
+  "set <M-a>=a
+
+  " copy on right-click
+  vmap <RightMouse> y
+
+  "proper alt way
+  map <ESC>a <M-a>
+  map! <ESC>a <M-a>
+  "map <M-a> :echo lol
+  "map! <M-a> :echo lol
+
+  " map only exists so Vim-Plug can autoload
+  vmap UU <Plug>Uplio_Visual("v")
+  nmap UU <Plug>Uplio_File("n")
+  vmap <F9> <Plug>v_Friendly
+  nmap <F9> <Plug>n_Friendly
+  nmap <F11> :U<CR>
+  command! U w|!rsync -rq ~/archlinux_www_installscript/ vm:/root/dai && ssh vm "screen -S dai -X stuff 'echo JOHN 2>&1 | tee dai.log'$(echo -ne '\015')"
+"
+
+" Misc
+  if has('autocmd')
+    augroup vimrc
+      autocmd!
+      " nfo fix
+      "autocmd BufNewFile,BufRead *.nfo edit ++enc=cp437
+      " TODO: set ambiwidth=single, fileencoding=cp437 without breaking upl.io
+      " jump to the last position when reopening
+      autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+      " TODO: remapped CR so quickfix ENTER to open location doesn't work!
+      autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+    augroup END
+  endif
+
+  function! HasPaste()
+      if &paste
+          return '[PASTE]'
+      en
+      return ''
+  endfunction
+
+  function! MyTitle()
+    let l:user = $USER
+    let l:hostname = hostname()
+    let l:userhost = l:user.'@'.l:hostname
+
+    let l:fname = '%t'
+    "let l:fpath_relative = "(%f)"
+    let l:fpath_absolute = '(%F)'
+    " TODO: how do i get (~) ?
+    "let l:flag_modified = "%M"
+    let l:flags = '%h%w%m%r' " [help],[Preview],[+] (modified),[RO] (readonly)
+    "let l:argument_list_status = "%a"
+                " TODO: remove /usr from $HOME if its there
+    let l:cwd = substitute(getcwd(),$HOME,'~','')
+    "let l:cwd = getcwd()
+    let l:title_parts = [
+          \ l:fname,
+          \ l:flags,
+          \ l:fpath_absolute,
+          \ 'cwd:'.'['.l:cwd.']',
+          \ '('.l:userhost.')',
+          \]
+
+    return join(l:title_parts, '')
+  endfunction
+
+  set titlelen=0 "just show it all ffs
+  let &titlestring=MyTitle()
+
+  let g:syntastic_errors = 0
+  function! SyntasticCheckHook(errors)
+    if !empty(a:errors)
+      let g:syntastic_errors = a:errors
+    else
+      let g:syntastic_errors = 0
+    endif
+  endfunction
+
+  function! SyntasticStatusLinePart()
+    let l:syntastic_warning = '%#warningmsg#' " Syntastic warning msg
+    let l:syntastic_statusline = '%{SyntasticStatuslineFlag()}' "
+    let l:syntastic_highlight = '%*' " Highlight field help :hl-User1..9
+
+    let l:syntastic_parts = [
+          \ l:syntastic_warning,
+          \ l:syntastic_statusline,
+          \ l:syntastic_highlight,
+          \]
+  endfunction
+
+  let g:bufferline_echo = 0
+  let g:bufferline_active_buffer_left = ''
+  let g:bufferline_active_buffer_right = ''
+  " relative (:help filename-modifiers)
+  let g:bufferline_fname_mod = ':p:~:.:s?\.confs/home/??'
+  "                                     ^ remove symlink-path from dotfiles
+  let g:bufferline_active_highlight = 'CursorLineNr'
+  let g:bufferline_pathshorten = 1
+
+  function! MyStatusLine()
+    " help 'statusline'
+    "let l:bufnum = '%#Title#%\[%-1.3n]%*' " range 1 to 3 characters of buffer number
+    "let l:fpath_relative = '%#CursorLineNr#%\[ %f ]%*'
+    let l:fpath_absolute = '%F'
+    let l:flags = '%h%w%m%r' " [help],[Preview],[+] (modified),[RO] (readonly)
+    let l:paste = '%#Search#%{HasPaste()}%*' " %#Search# %* is yellow :help hitest.vim
+    let l:separator = '%=%\' " Separator left/right aligned items
+    let l:syntastic = exists('g:loaded_syntastic_plugin') ? SyntasticStatusLinePart() : ''
+    let l:bufferline = exists('g:loaded_bufferline') ? '%{bufferline#refresh_status()}'.bufferline#get_status_string() : ''
+    let l:ruler = '%#Title#%  %*%#Title#%\C:%c%*%=%#TabLine#%\|%*%#Title#%\%P%*' " Ruler - statusline overrides :set ruler
+    let l:statusline_parts = [
+    \ l:bufferline,
+    \ l:paste,
+    \ l:flags,
+    \ l:separator,
+    \ l:ruler,
+    \ empty(g:syntastic_errors) ? '' : l:syntastic,
+    \]
+    return join(l:statusline_parts, '')
+  endfunction
+
+  set statusline=%!MyStatusLine()
+
+  if has('unix')
+      command! W w !sudo tee % > /dev/null
+  endif
+  "" take 1 arg   name vim cmd argument             #vim cmd #arguments to vim command
+  "" Split vertically with :VS [buffernumber]
+  command! -nargs=1 VS vert sb<args>
+  "" Split horizontally/below with :HS [buffernumber]
+  command! -nargs=1 HS bel sb<args>
+
+  let g:uplio_key = '__REMOVED__'
+  "let g:uplio_echo_url = 1 " (default: 1)
+  let g:uplio_strftime = substitute(strftime('%x_%X'), '/\|:', 'x', 'g')
+
+  function! Fetch_Page(url)
+          let l:curl = 'curl -sL '.a:url
+          let l:sh_out = system(l:curl)
+          enew
+          put =l:sh_out
+          execute ':filetype detect'
+  endfunction
+
+  set cmdheight=2
+  let g:echodoc_enable_at_startup = 1
+
+" set the runtime path to include Vundle and initialize
+" set rtp+=~/.vim/bundle/Vundle.vim
+" call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+" call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+" Plugin 'VundleVim/Vundle.vim'
+
