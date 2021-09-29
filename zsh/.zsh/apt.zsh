@@ -1,0 +1,10 @@
+alias alu='apt list --upgradable'
+alias Ac='sudo apt autoclean'
+alias Ag='sudo apt install'
+alias Ai='apt show'
+alias Ar='sudo apt remove'
+alias Arm='sudo apt autoremove'
+alias Arp='sudo apt remove --purge'
+alias As='apt search'
+alias apt-update="sudo apt-get update"
+alias apt-upgrade="sudo apt-get update && sudo apt-get upgrade && sudo apt-get clean"

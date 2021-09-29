@@ -1,0 +1,1 @@
+/home/codin/.zsh/themes/spaceship-prompt/spaceship.zsh-theme

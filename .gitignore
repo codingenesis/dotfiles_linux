@@ -4,3 +4,4 @@ git/.git_customized_configs/git-personal.conf
 git/.git_customized_configs/git-work.conf
 polybar_laptop/polybar/config
 xfiles/dot-Xresources
+zsh/.zsh/remote_machines.zsh
