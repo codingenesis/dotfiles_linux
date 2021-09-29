@@ -1,0 +1,738 @@
+
+; Doc: https://github.com/jaagr/polybar
+; Wiki: https://github.com/jaagr/polybar/wiki
+
+[colors]
+blueScreen1 = #ffa800
+greenScreen2 = #86D555
+lightpinkScreen3 = #ffa800
+backgroundRgba = #2e3436
+foreground = #ffffff
+urgent = #e20049
+secondary = #ffa800
+underline = #ffa800
+
+[bar/default]
+height = 25
+offset-y = 0
+top = true
+fixed-center = true
+background = #002f343f
+background-alt = #fff
+foreground = ${colors.foreground}
+
+line-size = 3
+line-color = #f00
+
+padding-left = 0
+padding-right = 3
+module-margin = 2
+
+font-0 = Zekton:size=10;2
+font-1 = Font Awesome 5 Free:style=Regular:pixelsize=12;3
+font-2 = Font Awesome 5 Brands:pixelsize=12;4
+font-3 = Font Awesome 5 Free:style=Solid:pixelsize=12;5
+font-4 = MaterialIcons:size=12;6
+
+modules-left = i3 xwindow
+#modules-center = xwindow
+modules-right = cpu memory volume date powermenu
+
+#[bar/center]
+#inherit = bar/default
+#monitor = DVI-I-1
+#modules-right = powermenu
+#tray-position = right
+#tray-detached = false
+#tray-padding = 0
+
+[bar/left_top]
+inherit = bar/default
+monitor = VGA1
+modules-left = i3_left 
+modules-center = xwindow
+modules-right = 
+bottom = false
+border-bottom-size = 3
+border-bottom-color = #002f343f
+border-top-size = 3
+border-top-color = #002f343f
+border-right-size = 3
+border-right-color = #002f343f
+border-left-size = 20
+border-left-color = #002f343f
+
+;[bar/left_bot]
+;inherit = bar/default
+;monitor = VGA1
+;modules-left = i3_left
+;modules-center = xwindow
+;modules-right = weather gmail
+;bottom = true
+;border-bottom-size = 5
+;border-bottom-color = #002f343f
+;border-top-size = 5
+;border-top-color = #002f343f
+;border-right-size = 5
+;border-right-color = #002f343f
+;border-left-size = 5
+;border-left-color = #002f343f
+
+[bar/center_top]
+inherit = bar/default
+monitor = eDP1
+modules-left = i3_center system-uptime-pretty
+modules-center = cpu spotify memory
+modules-right = pkg powermenu
+module-margin = 1
+module-rounded = 5
+padding-left = 1
+radius = 0.5
+bottom = false
+border-bottom-size = 5
+border-bottom-color = #002f343f
+border-top-size = 5
+border-top-color = #002f343f
+border-right-size = 5
+border-right-color = #002f343f
+border-left-size = 5
+broder-left-color = #002f343f
+tray-position = right
+tray-detached = false
+tray-maxsize = 20
+tray-transparent = false
+tray-background = ${colors.backgroundRgba}
+tray-offset-x = 0
+tray-offset-y = 0
+tray-padding = 1
+tray-scale = 1.0
+
+
+[bar/center_bot]
+inherit = bar/default
+monitor = eDP1
+modules-left = weather info-trash filesystem
+;modules-center = myip
+modules-center = isrunning-openvpn wired
+modules-right =  date compton redshift
+radius = 0.5
+line-size = 1
+line-color = ${colors.backgroundRgba}
+bottom = true
+border-bottom-size = 5
+border-bottom-color = #002f343f
+border-top-size = 5
+border-top-color = #002f343f
+border-right-size = 5
+border-right-color = #002f343f
+border-left-size = 5
+border-left-color = #002f343f
+
+[bar/right_top]
+inherit = bar/default
+monitor = HDMI1
+modules-left = i3_right 
+;modules-center = bitcoin ethereum fuel omisego stellar
+modules-center = 
+modules-right = 
+padding-left = 3
+bottom = false
+border-bottom-size = 5
+border-bottom-color = #002f343f
+border-top-size = 5
+border-top-color = #002f343f
+border-right-size = 5
+border-right-color = #002f343f
+border-left-size = 5
+border-left-color = #002f343f
+
+[bar/right_bot]
+inherit = bar/default
+monitor = HDMI1
+modules-left = i3_right
+modules-center =
+modules-right = info-trash kernel system-uptime-pretty
+padding-left = 3
+bottom = true
+border-bottom-size = 5
+border-bottom-color = #002f343f
+border-top-size = 5
+border-top-color = #002f343f
+border-right-size = 5
+border-right-color = #002f343f
+border-left-size = 5
+border-left-color = #002f343f
+
+;;;;;;;;;;;;;;;;;
+;; MODULES FOR ;;
+;;  LEFT_TOP   ;;
+;;;;;;;;;;;;;;;;;
+
+[module/spotify]
+type = custom/script
+exec-if = ~/.config/polybar/script/spotify.sh --isPlaying
+exec = ~/.config/polybar/script/spotify.sh --title
+click-left = i3-msg workspace 5
+interval = 5
+format = %{F#ACACCB}  <label>  %{F-}
+format-prefix-padding = 2
+format-prefix = ""
+format-prefix-foreground = ${colors.backgroundRgba}
+format-prefix-background = ${colors.blueScreen1}
+format-background = ${colors.backgroundRgba}
+label = %output%
+
+;;;;;;;;;;;;;;;;;
+;; MODULES FOR ;;
+;;  LEFT_BOT   ;;
+;;;;;;;;;;;;;;;;;
+
+[module/i3_left]
+type = internal/i3
+pin-workspaces = true
+index-sort = true
+enable-click = true
+enable-scroll = true
+wrapping-scroll = true
+reverse-scroll = true
+fuzzy-match = true
+format = %{F#ACACCB}<label-mode>%{F#6487C2}<label-state>  %{F-}
+format-prefix = ""
+format-prefix-padding = 2
+format-prefix-foreground = ${colors.backgroundRgba}
+format-prefix-background = ${colors.greenScreen2}
+label-mode-padding = 2
+label-focused = %icon% %name%
+label-focused-padding = 2
+label-unfocused = %icon% %name%
+label-unfocused-padding = 2
+label-visible = %icon% %name%
+label-visible-padding = 2
+label-urgent = %icon% %name%
+label-urgent-padding = 2
+label-focused-foreground = ${colors.greenScreen2}
+label-focused-background = #f02f343f
+label-visible-foreground = ${colors.greenScreen2}
+label-visible-background = #f02f343f
+label-unfocused-foreground = #a086d555
+label-unfocused-background = #a02f343f
+label-urgent-foreground = ${colors.urgent}
+
+ws-icon-0 = C0D3;
+ws-icon-1 = T3rM;
+ws-icon-2 = Br0W53R;
+ws-icon-3 = F1L3;
+ws-icon-4 = M3D14;
+ws-icon-5 = Gr4Ph1K;
+ws-icon-6 = J4V4;
+ws-icon-7 = CuRS3S;
+ws-icon-8 = V3RS10N;
+ws-icon-9 = C0MMuN1C;
+ws-icon-10 = 0Th3Rz;
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:100:...%
+format = %{F#ACACCB}  <label>  %{F-}
+format-prefix-padding = 2
+format-prefix = ""
+format-prefix-foreground = ${colors.backgroundRgba}
+format-prefix-background = ${colors.blueScreen1}
+format-background = ${colors.backgroundRgba}
+
+[module/gmail]
+type = custom/script
+exec = ~/.config/polybar/script/gmail/launch.py
+tail = true
+click-left = xdg-open https://mail.google.com
+format = %{F#ACACCB}  <label> MAIL(S)  %{F-}
+format-prefix-padding = 2
+format-prefix = ""
+format-prefix-foreground = ${colors.backgroundRgba}
+format-prefix-background = ${colors.greenScreen2}
+format-background = ${colors.backgroundRgba}
+
+[module/weather]
+type = custom/script
+interval = 1024
+format = %{F#ACACCB}  <label>  %{F-}
+format-prefix-padding = 2
+format-prefix = ""
+format-prefix-foreground = ${colors.backgroundRgba}
+format-prefix-background = ${colors.greenScreen2}
+format-background = ${colors.backgroundRgba}
+exec = ~/.config/polybar/script/weather
+
+;;;;;;;;;;;;;;;;;
+;; MODULES FOR ;;
+;; CENTER_TOP  ;;
+;;;;;;;;;;;;;;;;;
+
+[module/hddtemp_SSD_PNY]
+type = custom/script
+interval = 0.5
+format = %{F#ACACCB}  SSD2 %{F#86D555}<label>  %{F-}
+format-prefix-padding = 2
+format-prefix = ""
+format-prefix-foreground = ${colors.backgroundRgba}
+format-prefix-background = ${colors.greenScreen2}
+format-background = ${colors.backgroundRgba}
+exec = hddtemp /dev/sdb | cut -c55-59
+
+[module/hddtemp_SSD_SAMSUNG]
+type = custom/script
+interval = 0.5
+format = %{F#ACACCB}  SSD1 %{F#86D555}<label>  %{F-}
+format-prefix-padding = 2
+format-prefix = ""
+format-prefix-foreground = ${colors.backgroundRgba}
+format-prefix-background = ${colors.greenScreen2}
+format-background = ${colors.backgroundRgba}
+exec = hddtemp /dev/sda | cut -c57-61
+
+[module/temperature]
+type = internal/temperature
+interval = 2
+thermal-zone = 0
+hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon1/temp1_input
+warn-temperature = 80
+format = %{F#ACACCB}  INT %{F#86D555}<label>  %{F-}
+format-warn = <label-warn>
+format-prefix-padding = 2
+format-prefix = ""
+format-prefix-foreground = ${colors.backgroundRgba}
+format-prefix-background = ${colors.greenScreen2}
+format-background = ${colors.backgroundRgba}
+label = %temperature%
+label-warn = %temperature%
+label-warn-foreground = ${colors.secondary}
+
+;[module/gpu_temp]
+;type = custom/script
+;interval = 2
+;format = %{F#ACACCB}  GPU %{F#86D555}<label>°C  %{F-}
+;format-prefix = ""
+;format-prefix-padding = 2
+;format-prefix-foreground = ${colors.backgroundRgba}
+;format-prefix-background = ${colors.greenScreen2}
+;format-background = ${colors.backgroundRgba}
+;exec = nvidia-smi -q -d temperature | grep GPU | perl -pe '/^GPU/ && s/\n//' | grep 
+;^GPU | cut -c 59-60
+
+[module/cpu]
+type = internal/cpu
+interval = 5
+format = %{F#ACACCB}  CPU %{F#86D555}<label>  %{F-}
+format-prefix = ""
+format-prefix-padding = 2
+format-prefix-foreground = ${colors.backgroundRgba}
+format-prefix-background = ${colors.blueScreen1}
+format-background = ${colors.backgroundRgba}
+format-foreground = ${colors.blueScreen1}
+label-foreground = ${colors.foreground}
+label = %{F#86D555}%percentage:4%%%{F-}
+
+[module/memory]
+type = internal/memory
+interval = 5
+format = %{F#ACACCB}  RAM%{F-} %{F#86D555}<label>  %{F-}
+format-prefix = ""
+format-prefix-padding = 2
+format-prefix-foreground = ${colors.backgroundRgba}
+format-prefix-background = ${colors.blueScreen1}
+format-background = ${colors.backgroundRgba}
+label = %{F#86D555}%percentage_used:3%%%{F-} (%{F#ffed47}%gb_used:5%%{F-}/%{F#ffb647}%gb_free:5%%{F-})
+format-foreground = ${colors.blueScreen1}
+label-foreground = ${colors.foreground}
+
+[module/filesystem]
+type = internal/fs
+mount-0 = /
+;mount-1 = /boot
+;mount-2 = /tmp
+;mount-3 = /dev
+;mount-4 = /run
+;mount-5 = /backup
+interval = 1024
+fixed-values = true
+spacing = 0
+format-mounted-prefix = ""
+format-mounted = <label-mounted>
+format-unmounted = <label-unmounted>
+label-mounted = %{F#ACACCB}  %mountpoint%:%{F-} %{F#86D555}%percentage_free%%%{F-} of %{F#86D555}%total%  %{F-}
+label-unmounted = %mountpoint%: not mounted
+label-unmounted-foreground = ${colors.secondary}
+label-mounted-foreground = ${colors.greenScreen2}
+label-mounted-background = ${colors.backgroundRgba}
+format-mounted-prefix-padding = 2
+format-mounted-prefix-foreground = ${colors.backgroundRgba}
+format-mounted-prefix-background = ${colors.greenScreen2}
+
+[module/pkg]
+type = custom/script
+interval = 1200
+format = %{F#86D555} <label>  %{F-}
+format-prefix-padding = 2
+format-prefix = ""
+format-prefix-foreground = ${colors.backgroundRgba}
+format-prefix-background = ${colors.greenScreen2}
+format-background = ${colors.backgroundRgba}
+label = "%output:10%"
+exec = ~/.config/polybar/script/pkg_dark.sh
+exec-if = "ping -q -w 2 -c 1 176.34.135.167 > /dev/null"
+
+;;;;;;;;;;;;;;;;;
+;; MODULES FOR ;;
+;; CENTER_BOT  ;;
+;;;;;;;;;;;;;;;;;
+
+[module/i3_center]
+type = internal/i3
+pin-workspaces = true
+index-sort = true
+enable-click = true
+enable-scroll = true
+wrapping-scroll = true
+reverse-scroll = true
+fuzzy-match = true
+format = %{F#ACACCB}<label-mode>%{F#86D555}<label-state>  %{F-}
+format-prefix = ""
+format-prefix-padding = 2
+format-prefix-foreground = ${colors.backgroundRgba}
+format-prefix-background = ${colors.greenScreen2}
+label-mode-padding = 2
+label-focused = %icon% %name%
+label-focused-padding = 2
+label-unfocused = %icon% %name%
+label-unfocused-padding = 2
+label-visible = %icon% %name%
+label-visible-padding = 2
+label-urgent = %icon% %name%
+label-urgent-padding = 2
+label-focused-foreground = ${colors.greenScreen2}
+label-focused-background = #f02f343f
+label-visible-foreground = ${colors.greenScreen2}
+label-visible-background = #f02f343f
+label-unfocused-foreground = #a086D555
+label-unfocused-background = #a02f343f
+label-urgent-foreground = ${colors.urgent}
+
+ws-icon-0 = C0D3;
+ws-icon-1 = T3rM;
+ws-icon-2 = Br0W53R;
+ws-icon-3 = F1L3;
+ws-icon-4 = M3D14;
+ws-icon-5 = Gr4Ph1K;
+ws-icon-6 = J4V4;
+ws-icon-7 = CuRS3S;
+ws-icon-8 = V3RS10N;
+ws-icon-9 = C0MMuN1C;
+ws-icon-10 = 0Th3Rz;
+
+[module/wired]
+type = internal/network
+interface = wlo1
+format-connected-prefix-padding = 2
+format-connected-prefix = ""
+format-connected-prefix-foreground = ${colors.backgroundRgba}
+format-connected-prefix-background = ${colors.blueScreen1}
+format-connected-background = ${colors.backgroundRgba}
+format-connected = %{F#86D555} <label-connected>  %{F-}
+format-disconnected-prefix = ""
+format-disconnected-prefix-foreground = ${colors.blueScreen1}
+format-disconnected = <label-disconnected>
+label-connected = %{F#ACACCB} UP :%{F-} %{F#86D555}%upspeed%%{F-} %{F#ACACCB}DOWN :%{F-} %{F#86D555}%downspeed%%{F-} %{F#ACACCB}LAN :%{F-} %{F#86D555}%local_ip% %{F-}
+label-disconnected = "---"
+label-disconnected-foreground = ${colors.foreground}
+
+[module/isrunning-openvpn]
+type = custom/script
+exec = ~/.config/polybar/script/isrunning-openvpn_dark.sh
+interval = 1024
+format-prefix = ""
+format-prefix-padding = 2
+format-prefix-foreground = ${colors.backgroundRgba}
+format-prefix-background = ${colors.blueScreen1}
+format-background = ${colors.backgroundRgba}
+
+[module/myip]
+type = custom/script
+interval = 60
+format = %{F#ACACCB} WAN :%{F-} %{F#86D555}<label>  %{F-}
+format-prefix-padding = 2
+format-prefix = ""
+format-prefix-foreground = ${colors.backgroundRgba}
+format-prefix-background = ${colors.blueScreen1}
+format-background = ${colors.backgroundRgba}
+exec = telnet 4.ifcfg.me 2>&1 | grep IPv4 | cut -d' ' -f4
+
+[module/volume]
+type = internal/alsa
+format-volume = %{F#ACACCB} <ramp-volume><bar-volume>  %{F-}
+format-muted = %{F#ACACCB}   %{F-}
+format-muted-background = ${colors.backgroundRgba}
+format-muted-prefix =  
+format-muted-prefix-padding = 2
+format-muted-prefix-background = ${colors.greenScreen2}
+format-muted-prefix-foreground = ${colors.backgroundRgba}
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-3 = 
+ramp-volume-foreground = ${colors.backgroundRgba}
+ramp-volume-background = ${colors.greenScreen2}
+ramp-volume-padding = 2
+bar-volume-fill-padding = 2
+bar-volume-empty-padding = 2
+bar-volume-fill-background = ${colors.backgroundRgba}
+bar-volume-empty-background = ${colors.backgroundRgba}
+bar-volume-width = 6
+bar-volume-indicator = |
+bar-volume-indicator-background = ${colors.backgroundRgba}
+bar-volume-indicator-foreground = ${colors.greenScreen2}
+bar-volume-fill = 
+bar-volume-fill-font = 3
+bar-volume-fill-foreground = ${colors.foreground}
+bar-volume-empty = 
+bar-volume-empty-font = 3
+bar-volume-empty-foreground = ${colors.secondary}
+
+[module/date]
+type = internal/date
+format-prefix-padding = 2
+format-prefix = ""
+format-prefix-foreground = ${colors.backgroundRgba}
+format-prefix-background = ${colors.greenScreen2}
+format-background = ${colors.backgroundRgba}
+date = %{F#B3B3D4}  %d %B %Y - %H:%M:%S  %{F-}
+
+[module/compton]
+type = custom/script
+exec = ~/.config/polybar/script/compton.sh
+click-left = ~/.config/polybar/script/compton-toggle.sh
+format-prefix = ""
+format-prefix-foreground = ${colors.backgroundRgba}
+format-prefix-background = ${colors.greenScreen2}
+format-prefix-padding = 2
+format-background = ${colors.backgroundRgba}
+interval = 1000
+
+[module/redshift]
+type = custom/script
+format-prefix = ""
+format-prefix-foreground = ${colors.backgroundRgba}
+format-prefix-background = ${colors.greenScreen2}
+format-prefix-padding = 2
+format-background = ${colors.backgroundRgba}
+interval = 1000
+exec = ~/.config/polybar/script/redshift.sh
+
+[module/powermenu]
+type = custom/menu
+format-spacing = 0
+label-active-font = 0
+
+label-open = 
+label-open-foreground = ${colors.backgroundRgba}
+label-open-background = ${colors.greenScreen2}
+label-open-padding = 2
+label-close = 
+label-close-padding = 2
+label-close-foreground = ${colors.urgent}
+label-close-background = ${colors.backgroundRgba}
+
+icon-reboot = 
+
+menu-0-0 = 
+menu-0-0-foreground = ${colors.greenScreen2}
+menu-0-0-background = ${colors.backgroundRgba}
+menu-0-0-padding = 2
+menu-0-0-exec = menu-open-1
+menu-0-1 = 
+menu-0-1-foreground = ${colors.urgent}
+menu-0-1-background = ${colors.backgroundRgba}
+menu-0-1-padding = 2
+menu-0-1-exec = menu-open-2
+
+menu-1-0 = 
+menu-1-0-foreground = ${colors.greenScreen2}
+menu-1-0-background = ${colors.backgroundRgba}
+menu-1-0-padding = 2
+menu-1-0-exec = shutdown -r
+menu-1-1 = 
+menu-1-1-foreground = ${colors.urgent}
+menu-1-1-background = ${colors.backgroundRgba}
+menu-1-1-padding = 2
+menu-1-1-exec = menu-open-0
+
+menu-2-0 = 
+menu-2-0-foreground = ${colors.greenScreen2}
+menu-2-0-background = ${colors.backgroundRgba}
+menu-2-0-padding = 2
+menu-2-0-exec = 
+menu-2-1 = 
+menu-2-1-foreground = ${colors.urgent}
+menu-2-1-background = ${colors.backgroundRgba}
+menu-2-1-padding = 2
+menu-2-1-exec = menu-open-0
+
+;;;;;;;;;;;;;;;;;
+;; MODULES FOR ;;
+;;  RIGHT_TOP  ;;
+;;;;;;;;;;;;;;;;;
+
+[module/bitcoin]
+type = custom/script
+interval = 10
+format = %{F#ACACCB} <label> %{F-}
+format-prefix = " BTC"
+format-prefix-foreground = ${colors.backgroundRgba}
+format-prefix-background = ${colors.lightpinkScreen3}
+format-prefix-padding = 2
+format-background = ${colors.backgroundRgba}
+tail = true
+exec = ~/.config/polybar/script/bitcoin
+
+[module/ethereum]
+type = custom/script
+interval = 10
+format = %{F#ACACCB} <label> %{F-}
+format-prefix = " ETH"
+format-prefix-foreground = ${colors.backgroundRgba}
+format-prefix-background = ${colors.lightpinkScreen3}
+format-prefix-padding = 2
+format-background = ${colors.backgroundRgba}
+tail = true
+exec = ~/.config/polybar/script/ethereum
+
+[module/omisego]
+type = custom/script
+interval = 10
+format = %{F#ACACCB} <label> %{F-}
+format-prefix = "OMG"
+format-prefix-foreground = ${colors.backgroundRgba}
+format-prefix-background = ${colors.lightpinkScreen3}
+format-prefix-padding = 2
+format-background = ${colors.backgroundRgba}
+tail = true
+exec = ~/.config/polybar/script/omisego
+
+[module/stellar]
+type = custom/script
+interval = 10
+format = %{F#ACACCB} <label> %{F-}
+format-prefix = "XLM"
+format-prefix-foreground = ${colors.backgroundRgba}
+format-prefix-background = ${colors.lightpinkScreen3}
+format-prefix-padding = 2
+format-background = ${colors.backgroundRgba}
+tail = true
+exec = ~/.config/polybar/script/stellar
+
+[module/fuel]
+type = custom/script
+interval = 10
+format = %{F#ACACCB} <label> %{F-}
+format-prefix = "FUEL"
+format-prefix-foreground = ${colors.backgroundRgba}
+format-prefix-background = ${colors.lightpinkScreen3}
+format-prefix-padding = 2
+format-background = ${colors.backgroundRgba}
+tail = true
+exec = ~/.config/polybar/script/fuel
+
+;;;;;;;;;;;;;;;;;
+;; MODULES FOR ;;
+;;  RIGHT_BOT  ;;
+;;;;;;;;;;;;;;;;;
+
+[module/i3_right]
+type = internal/i3
+pin-workspaces = true
+index-sort = true
+enable-click = true
+enable-scroll = true
+wrapping-scroll = true
+reverse-scroll = frue
+fuzzy-match = true
+format = %{F#ACACCB}<label-mode>%{F#86D555}<label-state>  %{F-}
+format-prefix = ""
+format-prefix-padding = 2
+format-prefix-foreground = ${colors.backgroundRgba}
+format-prefix-background = ${colors.greenScreen2}
+label-mode-padding = 2
+label-focused = %icon% %name%
+label-focused-padding = 2
+label-unfocused = %icon% %name%
+label-unfocused-padding = 2
+label-visible = %icon% %name%
+label-visible-padding = 2
+label-urgent = %icon% %name%
+label-urgent-padding = 2
+label-focused-foreground = ${colors.greenScreen2}
+label-focused-background = #f02f343f
+label-visible-foreground = ${colors.greenScreen2}
+label-visible-background = #f02f343f
+label-unfocused-foreground = #a086d555
+label-unfocused-background = #111111
+label-urgent-foreground = ${colors.urgent}
+
+ws-icon-0 = C0D3;
+ws-icon-1 = T3rM;
+ws-icon-2 = Br0W53R;
+ws-icon-3 = F1L3;
+ws-icon-4 = M3D14;
+ws-icon-5 = Gr4Ph1K;
+ws-icon-6 = J4V4;
+ws-icon-7 = CuRS3S;
+ws-icon-8 = V3RS10N;
+ws-icon-9 = C0MMuN1C;
+ws-icon-10 = 0Th3Rz;
+
+[module/info-trash]
+type = custom/script
+exec = ~/.config/polybar/script/info-trash.sh
+interval = 1024
+click-left = ~/.config/polybar/script/info-trash.sh --clean
+format-prefix = ""
+format-prefix-padding = 2
+format-prefix-background = ${colors.greenScreen2}
+format-prefix-foreground = ${colors.backgroundRgba}
+format-background = ${colors.backgroundRgba}
+format = %{F#ACACCB}  <label> ITEM(S)  %{F-}
+
+[module/kernel]
+type = custom/script
+exec = uname -nrom
+tail = false
+interval = 1024
+format-prefix = ""
+format-prefix-padding = 2
+format-prefix-background = ${colors.lightpinkScreen3}
+format-prefix-foreground = ${colors.backgroundRgba}
+format-background = ${colors.backgroundRgba}
+format = %{F#ACACCB}  <label>  %{F-}
+
+[module/system-uptime-pretty]
+type = custom/script
+exec = ~/.config/polybar/script/system-uptime-pretty.sh
+interval = 30
+format-prefix = ""
+format-prefix-padding = 2
+format-prefix-background = ${colors.greenScreen2}
+format-prefix-foreground = ${colors.backgroundRgba}
+format-background = ${colors.backgroundRgba}
+format = %{F#ACACCB}  <label>  %{F-}
+
+[settings]
+screenchange-reload = true
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+[module/separator]
+type = custom/text
+content = |
+content-foreground = ${colors.greenScreen2}
+content-background = ${colors.greenScreen2}
