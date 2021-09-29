@@ -41,7 +41,7 @@ picom --experimental-backends --backend glx  --config /home/codin/dotfiles/i3_wo
 # my apps
 #slack &
 #skypeforlinux &
-#redshift-gtk &
+redshift-gtk &
 xfce4-clipman &
 #unclutter -root -visible &
 #gnome-keyring-daemon -r -d

@@ -1,8 +1,0 @@
-#!/usr/bin/env python3
-
-import requests
-
-r = requests.get('https://api.cryptowat.ch/markets/gdax/etheur/price');
-ticker = r.json()
-
-print('%.2f€' % float(ticker['result']['price']))
