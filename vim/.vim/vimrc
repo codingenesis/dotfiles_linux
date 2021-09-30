@@ -108,8 +108,9 @@ let g:indentLine_conceallevel = 2
 """"""""""""""""""""""""vim airline"""""""""""""""""""""
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+"let g:airline_theme='minimalist'
 let g:airline_theme='solarized'
-let g:airline_solarized_bg='dark'
+let g:airline_solarized_bg='light'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 set laststatus=2
@@ -343,7 +344,8 @@ call plug#end()
 set noruler
 set nocompatible
 filetype plugin indent on
-set number
+set nonumber
+set norelativenumber
 syntax on
 set clipboard=unnamed
 set titleold=""
@@ -417,7 +419,7 @@ let mapleader = ','
     set lazyredraw " (default: off)
         ¦       ¦  " screen will not be redrawn while executing macros
         ¦       ¦  " registers and other commands that have not been typed.
-    set number " (default: off)
+    set nonumber " (default: off)
     set noshowcmd
         ¦       ¦     " NOTE: Use :redraw,:redraw! or <C-L> to redraw syntax
     set synmaxcol=100 " (default: 3000) makes syntax in long files much faster
@@ -427,8 +429,8 @@ let mapleader = ','
     set noshowmode " (default: on)
   else
     set showcmd " Show normal mode commands to the right when typed
-    set number
-"    set relativenumber
+    set nonumber
+"    set norelativenumber
     set report=0 " (default: 2) will report even if 1 line is yanked.
   endif
 "

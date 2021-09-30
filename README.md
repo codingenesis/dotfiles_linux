@@ -39,6 +39,7 @@ All my dotfiles at one place
 ### Using GNU stow to install dotfiles
 I am using GNU stow to manage all my dotfiles. Make sure when executing any of
 stow command go to the dir where your files that you want to install are located.
+To install a specific file install the group instead of a specfic file.
 
 ### xfiles
 This contains all my x-files
@@ -155,19 +156,21 @@ Application config file for some applications that I care for
 - redshift
 - tmux.conf.local
 - wgetrc
+- p10.zsh
 
 Installation `stow --dotfiles -v -R -t ~ apps`
 
 ### Terminal theme color
 
-Color1 #172F4D   Color9  #4A5B62   
-Color2 #C05351   Color10 #C05351
-Color3 #509B22   Color11 #D69215
-Color4 #A27B01   color12 #CAB035
-Color5 #679BFF   color13 #5AA2FF
-Color6 #6C71C4   color14 #37AFF9
-Color7 #5D82EE   color15 #568362
-Color8 #5D5D5D   color16 #252525
+|----------------|:----------------:|
+|Color1 #172F4D  | Color9  #4A5B62  | 
+|Color2 #C05351  | Color10 #C05351  |
+|Color3 #509B22  | Color11 #D69215  |
+|Color4 #A27B01  | color12 #CAB035  |
+|Color5 #679BFF  | color13 #5AA2FF  |
+|Color6 #6C71C4  | color14 #37AFF9  |
+|Color7 #5D82EE  | color15 #568362  |
+|Color8 #5D5D5D  | color16 #252525  |
 
 Text Color #97ACB4
 Background color dark bluish
