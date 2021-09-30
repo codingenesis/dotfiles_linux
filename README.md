@@ -43,7 +43,9 @@ This contains following files
 
 
 ### zsh
-I am using oh-my-zsh and few plugins and fancy theme to make prompt more useful
+I am using oh-my-zsh and few plugins and fancy theme to make prompt more useful.
+I have created / copied useful funcitons and aliases over the period of time to
+make my life easier on terminal.
 
 Installation `stow --dotfiles -v -R -t ~ zsh`
 
@@ -96,7 +98,36 @@ For tmux plugin manager and other tmux plugins that I use can be installed via
 Die-hard fan forever. Heavily using vim, I am using vim inspired keybindings everywhere,
 even while using visual studio code.
 
-Installation
+I am using following vim plugins
+
+- auto-pairs
+- ctrlp.vim
+- emmet-vim
+- indentline
+- molokai
+- nerdcommenter
+- nerdtree
+- nerdtree-git-plugin
+- python-mode
+- supertab
+- syntastic
+- tagbar
+- ultisnips
+- undotree
+- vim-airline
+- vim-airline-themes
+- vim-colorschemes
+- vim-colors-solarized
+- vim-devicons
+- vim-easymotion
+- vim-json
+- vim-nerdtree-syntax-highlight
+- vim-sensible
+- vim-signify
+- vim-snippets
+- vim-surround
+
+Installation ` stow --dotfiles -v -R -t ~ vim`
 
 ### conf
 
@@ -106,5 +137,9 @@ process.
 ### apps
 
 Application config file for some applications that I care for
+
+- redshift
+- tmux.conf.local
+- wgetrc
 
 Installation `stow --dotfiles -v -R -t ~ apps`
