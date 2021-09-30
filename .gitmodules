@@ -67,3 +67,45 @@
 [submodule "vim/.vim/plugged/tagbar"]
 	path = vim/.vim/plugged/tagbar
 	url = https://github.com/majutsushi/tagbar.git
+[submodule "vim/.vim/plugged/ultisnips"]
+	path = vim/.vim/plugged/ultisnips
+	url = https://github.com/SirVer/ultisnips.git
+[submodule "vim/.vim/plugged/undotree"]
+	path = vim/.vim/plugged/undotree
+	url = https://github.com/mbbill/undotree.git
+[submodule "vim/.vim/plugged/vim-airline"]
+	path = vim/.vim/plugged/vim-airline
+	url = https://github.com/vim-airline/vim-airline.git
+[submodule "vim/.vim/plugged/vim-airline-themes"]
+	path = vim/.vim/plugged/vim-airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes.git
+[submodule "vim/.vim/plugged/vim-colorschemes"]
+	path = vim/.vim/plugged/vim-colorschemes
+	url = https://github.com/flazz/vim-colorschemes.git
+[submodule "vim/.vim/plugged/vim-colors-solarized"]
+	path = vim/.vim/plugged/vim-colors-solarized
+	url = https://github.com/altercation/vim-colors-solarized.git
+[submodule "vim/.vim/plugged/vim-devicons"]
+	path = vim/.vim/plugged/vim-devicons
+	url = https://github.com/ryanoasis/vim-devicons.git
+[submodule "vim/.vim/plugged/vim-easymotion"]
+	path = vim/.vim/plugged/vim-easymotion
+	url = https://github.com/easymotion/vim-easymotion.git
+[submodule "vim/.vim/plugged/vim-json"]
+	path = vim/.vim/plugged/vim-json
+	url = https://github.com/elzr/vim-json.git
+[submodule "vim/.vim/plugged/vim-nerdtree-syntax-highlight"]
+	path = vim/.vim/plugged/vim-nerdtree-syntax-highlight
+	url = https://github.com/tiagofumo/vim-nerdtree-syntax-highlight.git
+[submodule "vim/.vim/plugged/vim-sensible"]
+	path = vim/.vim/plugged/vim-sensible
+	url = https://github.com/tpope/vim-sensible.git
+[submodule "vim/.vim/plugged/vim-signify"]
+	path = vim/.vim/plugged/vim-signify
+	url = https://github.com/mhinz/vim-signify.git
+[submodule "vim/.vim/plugged/vim-snippets"]
+	path = vim/.vim/plugged/vim-snippets
+	url = https://github.com/honza/vim-snippets.git
+[submodule "vim/.vim/plugged/vim-surround"]
+	path = vim/.vim/plugged/vim-surround
+	url = https://github.com/tpope/vim-surround.git
