@@ -12,6 +12,7 @@
     - [vim](#vim)
     - [conf](#conf)
     - [apps](#apps)
+    - [Terminal theme color](#terminal-theme-color)
 
 # dotfiles
 All my dotfiles at one place
@@ -162,7 +163,7 @@ Installation `stow --dotfiles -v -R -t ~ apps`
 
 ### Terminal theme color
 
-|----------------|:----------------:|
+|-----------------------|:------------------------|
 |Color1 #172F4D  | Color9  #4A5B62  | 
 |Color2 #C05351  | Color10 #C05351  |
 |Color3 #509B22  | Color11 #D69215  |
