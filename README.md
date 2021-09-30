@@ -13,9 +13,6 @@
     - [conf](#conf)
     - [apps](#apps)
 
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
-
 # dotfiles
 All my dotfiles at one place
 
@@ -113,8 +110,7 @@ For tmux plugin manager and other tmux plugins that I use can be installed via
 
 ### vim
 
-Die-hard fan forever. Heavily using vim, I am using vim inspired keybindings everywhere,
-even while using visual studio code.
+Die-hard fan but to be frank using Visual Studio Code more heavily then vim, I am using vim inspired keybindings everywhere though.
 
 I am using following vim plugins
 
