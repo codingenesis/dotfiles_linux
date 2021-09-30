@@ -109,3 +109,6 @@
 [submodule "vim/.vim/plugged/vim-surround"]
 	path = vim/.vim/plugged/vim-surround
 	url = https://github.com/tpope/vim-surround.git
+[submodule "zsh/.zsh/themes/powerlevel10k"]
+	path = zsh/.zsh/themes/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k.git
