@@ -1,3 +1,21 @@
+
+- [dotfiles](#dotfiles)
+    - [Using GNU stow to install dotfiles](#using-gnu-stow-to-install-dotfiles)
+    - [xfiles](#xfiles)
+    - [bash](#bash)
+    - [zsh](#zsh)
+    - [git](#git)
+    - [i3wm](#i3wm)
+    - [i3_blocks](#i3_blocks)
+    - [polybar](#polybar)
+    - [tmux](#tmux)
+    - [vim](#vim)
+    - [conf](#conf)
+    - [apps](#apps)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
+
 # dotfiles
 All my dotfiles at one place
 
