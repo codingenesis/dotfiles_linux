@@ -31,3 +31,39 @@
 [submodule "tmux/.tmux/plugins/tpm"]
 	path = tmux/.tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
+[submodule "vim/.vim/plugged/auto-pairs"]
+	path = vim/.vim/plugged/auto-pairs
+	url = https://github.com/jiangmiao/auto-pairs.git
+[submodule "vim/.vim/plugged/ctrlp.vim"]
+	path = vim/.vim/plugged/ctrlp.vim
+	url = https://github.com/ctrlpvim/ctrlp.vim.git
+[submodule "vim/.vim/plugged/emmet-vim"]
+	path = vim/.vim/plugged/emmet-vim
+	url = https://github.com/mattn/emmet-vim.git
+[submodule "vim/.vim/plugged/indentLine"]
+	path = vim/.vim/plugged/indentLine
+	url = https://github.com/Yggdroot/indentLine.git
+[submodule "vim/.vim/plugged/molokai"]
+	path = vim/.vim/plugged/molokai
+	url = https://github.com/tomasr/molokai.git
+[submodule "vim/.vim/plugged/nerdcommenter"]
+	path = vim/.vim/plugged/nerdcommenter
+	url = https://github.com/scrooloose/nerdcommenter.git
+[submodule "vim/.vim/plugged/nerdtree"]
+	path = vim/.vim/plugged/nerdtree
+	url = https://github.com/preservim/nerdtree.git
+[submodule "vim/.vim/plugged/nerdtree-git-plugin"]
+	path = vim/.vim/plugged/nerdtree-git-plugin
+	url = https://github.com/Xuyuanp/nerdtree-git-plugin.git
+[submodule "vim/.vim/plugged/python-mode"]
+	path = vim/.vim/plugged/python-mode
+	url = https://github.com/python-mode/python-mode.git
+[submodule "vim/.vim/plugged/supertab"]
+	path = vim/.vim/plugged/supertab
+	url = https://github.com/ervandew/supertab.git
+[submodule "vim/.vim/plugged/syntastic"]
+	path = vim/.vim/plugged/syntastic
+	url = https://github.com/scrooloose/syntastic.git
+[submodule "vim/.vim/plugged/tagbar"]
+	path = vim/.vim/plugged/tagbar
+	url = https://github.com/majutsushi/tagbar.git
