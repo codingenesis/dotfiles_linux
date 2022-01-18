@@ -344,7 +344,7 @@ call plug#end()
 set noruler
 set nocompatible
 filetype plugin indent on
-set nonumber
+set number
 set norelativenumber
 syntax on
 set clipboard=unnamed

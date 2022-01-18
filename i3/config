@@ -65,8 +65,15 @@ bindsym --release Print exec --no-startup-id scrot %Y-%m-%d-%T.png -e 'mv $f ~/I
 ##======================================================================================
 
 ## autostart applications
+#exec picom --experimental-backends --backend glx  --config /home/codin/dotfiles/i3_workstation/i3/picom.conf
+#exec pasystray
+#exec udiskie
+#exec dunst -config ~/.config/dunst/dunstrc
 #exec --no-startup-id sh ~/.config/i3/wallpaper
 #exec --no-startup-id /usr/lib/gsd-xsettings
+#exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+#exec --no-startup-id /usr/lib/pam_kwallet_init
+#exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-xsettings
 exec --no-startup-id numlockx on
 #exec --no-startup-id compton -b --conf ~/.config/i3/compton
 #exec --no-startup-id picom  --experimental-backends --backend glx --config /home/codin/dotfiles/i3_workstation_single_screen/i3/picom.conf 
@@ -271,29 +278,29 @@ set $WS13 3. 
 set $WS14 4. 
 set $WS15 5. 
 
-workspace "0 "    output HDMI-0     #empty
-workspace "1  "  output HDMI-0     #done
-workspace "2 "   output HDMI-0    #empty
-workspace "3 "   output HDMI-0     #done
-workspace "4  "  output HDMI-0     #done
-workspace "5  "  output HDMI-0 
+workspace "0 "   output DVI-D-0    #k9s
+workspace "1  "  output DVI-D-0    #terminal
+workspace "2 "   output DVI-D-0    #editor
+workspace "3 "   output DVI-D-0    #file manager
+workspace "4  "  output DVI-D-0    #firefox
+workspace "5  "  output DVI-D-0    #chrome
 #workspace "6 "  output HDMI2
-workspace "6 "   output HDMI-0     #buggy spotify
-workspace "7  "  output HDMI-0     #done
-workspace "8  "  output HDMI-0     #empty
-workspace "9 "   output HDMI-0     #done
+workspace "6 "   output DVI-D-0     #buggy spotify
+workspace "7  "  output DVI-D-0     #vlc
+workspace "8  "  output DVI-D-0     #
+workspace "9 "   output DVI-D-0     #virt-manager
 
-workspace "1. "  output DP-1   #done
-workspace "2. "  output DP-1   #done
-workspace "3. "  output DP-1   #done
-workspace "4. "  output DP-1   #empty
-workspace "5. "  output DP-1   #done
+workspace "1. "  output HDMI-0   #done
+workspace "2. "  output HDMI-0   #done
+workspace "3. "  output HDMI-0   #done
+workspace "4. "  output HDMI-0   #empty
+workspace "5. "  output HDMI-0   #done
 
-workspace "6.  " output DVI-D-0  #done
-workspace "7.  " output DVI-D-0  #done
-workspace "8.  " output DVI-D-0  #done
-workspace "9. "  output DVI-D-0   #done
-workspace "0.  " output DVI-D-0  #empty
+workspace "6.  " output DP-0  #done
+workspace "7.  " output DP-0  #done
+workspace "8.  " output DP-0  #done
+workspace "9. "  output DP-0   #done
+workspace "0.  " output DP-0  #empty
 
 ##======================================================================================
 ##======================================================================================

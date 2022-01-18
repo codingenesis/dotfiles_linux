@@ -110,10 +110,11 @@ PS1="\[${BOLD}${MAGENTA}\]\u \[$PURPLE\]at \[$ORANGE\]\h \[$PURPLE\]in \[$PURPLE
 
 
 # Saving myself from repeatedly entering damn long passphrases
-eval $(keychain --eval --quiet id_ed25519 id_rsa )
+#eval $(keychain --eval --quiet id_ed25519 id_rsa)
 
 # Corrects errors in previous commands.
 eval "$(thefuck --alias)"
 
 # BAT better then CAT
 export BAT_THEME="TwoDark"
+source /usr/share/nvm/init-nvm.sh

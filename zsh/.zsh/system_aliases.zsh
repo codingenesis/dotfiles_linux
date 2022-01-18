@@ -119,8 +119,8 @@ alias lr="ls -laFhtr"
 alias lt="ls -altr | grep -v '^d' | tail -n 10" # last 10 recently changed files
 alias llr="ls -lartFh --group-directories-first" # most recently modified files at bottom
 alias lf="find ./* -ctime -1 | xargs ls -ltr" #files and dir that was touched in last hour
-alias preview='fzf --height=50% --layout=reverse --preview="bat --color=always {}"'
-alias cat='bat'
+#alias preview='fzf --height=50% --layout=reverse --preview="bat --color=always {}"'
+#alias cat='bat'
 alias ch='echo > ~/.bash_history && echo > ~/.zsh_history'
 alias cz='echo > ~/.z'
 #alias open="xdg-open"

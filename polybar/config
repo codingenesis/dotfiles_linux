@@ -82,7 +82,7 @@ border-left-color = #002f343f
 inherit = bar/default
 monitor = DVI-D-0
 modules-left = i3_center
-modules-center = cpu spotify memory
+modules-center = spotify
 modules-right = pkg powermenu
 module-margin = 1
 module-rounded = 5
@@ -130,10 +130,10 @@ border-left-color = #002f343f
 
 [bar/right_top]
 inherit = bar/default
-monitor = DP-1
+monitor = DP-0
 modules-left = i3_right system-uptime-pretty
 ;modules-center = bitcoin ethereum fuel omisego stellar
-modules-center = isrunning-openvpn wired myip
+modules-center = isrunning-openvpn wired myip cpu memory
 modules-right = date compton redshift
 padding-left = 3
 bottom = false
@@ -148,7 +148,7 @@ border-left-color = #002f343f
 
 [bar/right_bot]
 inherit = bar/default
-monitor = DP-1
+monitor = DP-0
 modules-left = i3_right
 modules-center =
 modules-right = info-trash kernel system-uptime-pretty
